@@ -85,13 +85,10 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/activity_main"
+    <ListView
+        android:id="@+id/listview_currencies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
-    </FrameLayout>
+        android:layout_height="match_parent"></ListView>
 
 
 </LinearLayout>

@@ -22,6 +22,20 @@ public class CurrenciesFragment extends Fragment{
 
     private ArrayAdapter<String> currenciesListAdapter;
 
+    private String[] sampleData = {
+            "AUD - 1.5282",
+            "BGN - 1.9558",
+            "BRL - 3.8134",
+            "CAD - 1.4963",
+            "CHF - 1.169",
+            "CNY - 7.8317",
+            "CZK - 25.589",
+            "DKK - 7.4429"};
+
+    public  String[] ReadSampleData(){
+        return  sampleData;
+    }
+
     public CurrenciesFragment (){
         // Required empty constractor
     }

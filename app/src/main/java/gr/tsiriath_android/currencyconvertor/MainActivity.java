@@ -8,15 +8,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnClear;
     private EditText edTxtCur1,edTxtCur2;
+    private String[] sampleData = {
+            "AUD - 1.5282",
+            "BGN - 1.9558",
+            "BRL - 3.8134",
+            "CAD - 1.4963",
+            "CHF - 1.169",
+            "CNY - 7.8317",
+            "CZK - 25.589",
+            "DKK - 7.4429"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
+        List<String> dummyList = Arrays.asList(sampleData);
+
+        ArrayAdapter<String> currenciesListAdapter =
+                new ArrayAdapter<String>(
+                        this,
+                        R.layout.list_item_currencies,
+                        R.id.list_item_currencies_textview,
+                        dummyList);
+
+        ListView currenciesListView = (ListView)findViewById(R.id.listview_currencies);
+        currenciesListView.setAdapter(currenciesListAdapter);
     }
 
     private View.OnClickListener clearOnClickListener = new View.OnClickListener() {
