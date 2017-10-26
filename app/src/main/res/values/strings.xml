@@ -10,6 +10,7 @@
     <string name="hint_cur_1">€ ???</string>
     <string name="hint_cur_2">$ ???</string>
     <string name="hint_spin_cur">Choose currency</string>
+    <string name="refresh">Refresh</string>
     <string name="last_upd_txt">Last update:</string>
     <string name="upd_text">Update online</string>
 </resources>
