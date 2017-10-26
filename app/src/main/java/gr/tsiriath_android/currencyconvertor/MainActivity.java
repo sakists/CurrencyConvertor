@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.m20_options) {
+        if (id == R.id.m22_refresh) {
+            FetchCurrenciesTask task = new FetchCurrenciesTask();
+            task.execute();
             return true;
         }
 
