@@ -12,9 +12,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static gr.tsiriath_android.currencyconvertor.MainActivity.currenciesListAdapter;
+import static android.app.PendingIntent.getActivity;
 
 /**
  * Created by tsiriath on 26/10/2017.
@@ -30,7 +32,15 @@ import static gr.tsiriath_android.currencyconvertor.MainActivity.currenciesListA
     @Override
     protected void onPostExecute(String[] strings) {
         if (strings!= null){
-            currenciesListAdapter.clear();/*
+            List<String> newData = new ArrayList<>(Arrays.asList(strings));
+            Log.i("onPostExecute", strings[0]);
+            Log.i("onPostExecute", strings[31]);
+/*
+        ArrayAdapter adapter = new ArrayAdapter(this(),
+                            R.layout.list_item_currencies,
+                            R.id.list_item_currencies_textview,
+                newData);
+            /*currenciesListAdapter.clear();
             for(String forecast:strings){
                 forecastListAdapter.add(forecast);
 
