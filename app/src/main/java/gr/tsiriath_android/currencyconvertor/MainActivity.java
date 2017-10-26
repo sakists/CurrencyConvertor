@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnClear;
     private EditText edTxtCur1,edTxtCur2;
+    static ArrayAdapter<String> currenciesListAdapter;
     private String[] sampleData = {
             "AUD - 1.5282",
             "BGN - 1.9558",
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<String> dummyList = Arrays.asList(sampleData);
 
-        ArrayAdapter<String> currenciesListAdapter =
+        currenciesListAdapter =
                 new ArrayAdapter<String>(
                         this,
                         R.layout.list_item_currencies,
