@@ -22,11 +22,14 @@ import static android.app.PendingIntent.getActivity;
  * Created by tsiriath on 26/10/2017.
  */
 
-    public class FetchCurrenciesTask extends AsyncTask<String, Void, String[]> {
+    public class FetchCurrenciesTask extends AsyncTask<String[], Void, String[]> {
+
 
         @Override
-        protected String[] doInBackground(String... params) {
-            return fetchCurrenciesData();
+        protected String[] doInBackground(String[]... params) {
+            //taskSampleData = params[0];
+            params[0] = fetchCurrenciesData();
+            return params[0]; //fetchCurrenciesData();
         }
 
     @Override
@@ -34,7 +37,10 @@ import static android.app.PendingIntent.getActivity;
         if (strings!= null){
             List<String> newData = new ArrayList<>(Arrays.asList(strings));
             Log.i("onPostExecute", strings[0]);
+            Log.i("onPostExecute", strings[7]);
             Log.i("onPostExecute", strings[31]);
+            //setMyListViewAdapter(R.id.listview_currencies);
+            //updateSampleData(0,strings[1]);
 /*
         ArrayAdapter adapter = new ArrayAdapter(this(),
                             R.layout.list_item_currencies,

@@ -1,10 +1,12 @@
 package gr.tsiriath_android.currencyconvertor;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,16 +23,18 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnClear;
     private EditText edTxtCur1,edTxtCur2;
-    static ArrayAdapter<String> currenciesListAdapter;
+    private List<String> dummyList;
+    private ArrayAdapter<String> currenciesListAdapter;
+    private ListView currenciesListView;
     private String[] sampleData = {
-            "AUD - 1.5282",
+            "AUD # 1.5282",
             "BGN - 1.9558",
             "BRL - 3.8134",
             "CAD - 1.4963",
             "CHF - 1.169",
             "CNY - 7.8317",
             "CZK - 25.589",
-            "DKK - 7.4429"};
+            "DKK # 7.4429"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +46,37 @@ public class MainActivity extends AppCompatActivity {
 
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
-
-        List<String> dummyList = Arrays.asList(sampleData);
-
-        currenciesListAdapter =
-                new ArrayAdapter<String>(
+/*
+        dummyList = Arrays.asList(sampleData);
+        currenciesListAdapter = new ArrayAdapter<String>(
                         this,
                         R.layout.list_item_currencies,
                         R.id.list_item_currencies_textview,
                         dummyList);
+        currenciesListView = (ListView)findViewById(R.id.listview_currencies);
+        currenciesListView.setAdapter(currenciesListAdapter);
+*/
+        createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,sampleData);
+        setMyListViewAdapter(R.id.listview_currencies);
+    }
 
-        ListView currenciesListView = (ListView)findViewById(R.id.listview_currencies);
+    public void createMyArrayAdapter(Activity myAct, int myLayoutID, int myItemID, String[] mySampleData){
+
+        currenciesListAdapter = new ArrayAdapter<String>(
+                myAct,
+                myLayoutID,
+                myItemID,
+                Arrays.asList(mySampleData));
+    }
+
+    public void updateSampleData(int index, String value){
+
+        sampleData[index]=value;
+    }
+
+    public void setMyListViewAdapter(int myListViewID){
+
+        currenciesListView =  (ListView)findViewById(myListViewID);
         currenciesListView.setAdapter(currenciesListAdapter);
     }
 
@@ -91,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
             FetchCurrenciesTask task = new FetchCurrenciesTask();
-            task.execute();
+            task.execute(sampleData);
+           // Log.i("afterTaskExecute", sampleData[0]);
+            // Log.i("afterTaskExecute", sampleData[7]);
             return true;
         }
 
