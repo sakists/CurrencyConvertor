@@ -1,10 +1,13 @@
 package gr.tsiriath_android.currencyconvertor;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,14 +25,16 @@ import static android.app.PendingIntent.getActivity;
  * Created by tsiriath on 26/10/2017.
  */
 
-    public class FetchCurrenciesTask extends AsyncTask<String[], Void, String[]> {
-
+    public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
+    Activity myAct;
+    private ArrayAdapter<String> currenciesListAdapter;
+    private ListView currenciesListView;
 
         @Override
-        protected String[] doInBackground(String[]... params) {
-            //taskSampleData = params[0];
-            params[0] = fetchCurrenciesData();
-            return params[0]; //fetchCurrenciesData();
+        protected String[] doInBackground(Activity... params) {
+
+            myAct = params[0];
+            return fetchCurrenciesData();
         }
 
     @Override
@@ -39,6 +44,14 @@ import static android.app.PendingIntent.getActivity;
             Log.i("onPostExecute", strings[0]);
             Log.i("onPostExecute", strings[7]);
             Log.i("onPostExecute", strings[31]);
+            currenciesListAdapter = new ArrayAdapter<String>(
+                    myAct,
+                    R.layout.list_item_currencies,
+                    R.id.list_item_currencies_textview,
+                    Arrays.asList(strings));
+            currenciesListView =  (ListView) myAct.findViewById(R.id.listview_currencies);
+            currenciesListView.setAdapter(currenciesListAdapter);
+            //remoteObj.getClass()..setMyListViewAdapter(R.id.listview_currencies);
             //setMyListViewAdapter(R.id.listview_currencies);
             //updateSampleData(0,strings[1]);
 /*

@@ -115,9 +115,13 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
             FetchCurrenciesTask task = new FetchCurrenciesTask();
-            task.execute(sampleData);
-           // Log.i("afterTaskExecute", sampleData[0]);
-            // Log.i("afterTaskExecute", sampleData[7]);
+            task.execute(this);
+            return true;
+        }
+        if (id == R.id.m23_facebook_post){
+            Log.i("afterTaskExecute", sampleData[0]);
+            Log.i("afterTaskExecute", sampleData[7]);
+            setMyListViewAdapter(R.id.listview_currencies);
             return true;
         }
 
