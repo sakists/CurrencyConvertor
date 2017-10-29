@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> currenciesListAdapter;
     private ListView currenciesListView;
     private String[] sampleData = {
-            "AUD # 1.5282",
-            "BGN - 1.9558",
-            "BRL - 3.8134",
-            "CAD - 1.4963",
-            "CHF - 1.169",
-            "CNY - 7.8317",
-            "CZK - 25.589",
-            "DKK # 7.4429"};
+            "AUD - 1.0000",
+            "BGN - 1.0000",
+            "BRL - 1.0000",
+            "CAD - 1.0000",
+            "CHF - 1.0000",
+            "CNY - 7.0000",
+            "CZK - 1.0000",
+            "DKK - 1.0000"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+
 /*
         dummyList = Arrays.asList(sampleData);
         currenciesListAdapter = new ArrayAdapter<String>(
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 */
         createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,sampleData);
         setMyListViewAdapter(R.id.listview_currencies);
+        btnClear.setFocusableInTouchMode(true);
+        btnClear.requestFocus();
     }
 
     public void createMyArrayAdapter(Activity myAct, int myLayoutID, int myItemID, String[] mySampleData){
