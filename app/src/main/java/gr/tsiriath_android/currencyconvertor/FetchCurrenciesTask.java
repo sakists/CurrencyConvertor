@@ -22,12 +22,8 @@ import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
 
-/**
- * Created by tsiriath on 26/10/2017.
- */
-
 public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
-    Activity parentActivity;
+    private Activity parentActivity;
     private ArrayAdapter<String> currenciesListAdapter;
     private ListView currenciesListView;
     private TextView newWelcomeMessage;
@@ -44,16 +40,16 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
 
         if (strings!= null){
             //Update welcome message
-            newWelcomeMessage= (TextView)parentActivity.findViewById(R.id.welcomeMessage);
+            newWelcomeMessage= parentActivity.findViewById(R.id.welcomeMessage);
             newWelcomeMessage.setText(strings[strings.length-1]);
-            //Update listview with new values. Welcome message not included/
+            //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
             currenciesListAdapter = new ArrayAdapter<String>(
                     parentActivity,
                     R.layout.list_item_currencies,
                     R.id.list_item_currencies_textview,
                     Arrays.asList(strings));
-            currenciesListView =  (ListView) parentActivity.findViewById(R.id.listview_currencies);
+            currenciesListView =  parentActivity.findViewById(R.id.listview_currencies);
             currenciesListView.setAdapter(currenciesListAdapter);
         }
         super.onPostExecute(strings);
@@ -67,7 +63,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             BufferedReader reader = null;
 
             // Will contain the raw JSON response as a string.
-            String currenciesJsonStr = null;
+            String currenciesJsonStr = "";
 
             try {
                 // Construct the URL for the api.fixer.io query
