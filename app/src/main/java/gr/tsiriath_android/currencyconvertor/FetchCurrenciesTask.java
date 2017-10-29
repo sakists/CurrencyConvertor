@@ -39,7 +39,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     protected void onPostExecute(String[] strings) {
 
         if (strings!= null){
-            //Update welcome message
+            //Update welcome message. Its the array's last element
             newWelcomeMessage= parentActivity.findViewById(R.id.welcomeMessage);
             newWelcomeMessage.setText(strings[strings.length-1]);
             //Update listview with new values. Welcome message not included
