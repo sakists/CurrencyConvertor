@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnClear;
+    private Button btnSwitch,btnClear;
     private EditText edTxtCur1,edTxtCur2;
     private List<String> dummyList;
     private ArrayAdapter<String> currenciesListAdapter;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+        btnSwitch = (Button) findViewById(R.id.btn_switch);   //σύνδεση του btnClear με το Button Clear
+        btnSwitch.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
 /*
         dummyList = Arrays.asList(sampleData);
@@ -59,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
 */
         createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,sampleData);
         setMyListViewAdapter(R.id.listview_currencies);
-        btnClear.setFocusableInTouchMode(true);
-        btnClear.requestFocus();
+        //Set focus on switch button
+        btnSwitch.setFocusableInTouchMode(true);
+        btnSwitch.requestFocus();
     }
 
     public void createMyArrayAdapter(Activity myAct, int myLayoutID, int myItemID, String[] mySampleData){
