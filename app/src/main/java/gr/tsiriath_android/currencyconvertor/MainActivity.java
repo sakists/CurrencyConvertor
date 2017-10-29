@@ -69,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 Arrays.asList(mySampleData));
     }
 
-    public void updateSampleData(int index, String value){
-
-        sampleData[index]=value;
-    }
-
     public void setMyListViewAdapter(int myListViewID){
 
         currenciesListView =  (ListView)findViewById(myListViewID);
@@ -119,9 +114,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.m23_facebook_post){
-            Log.i("afterTaskExecute", sampleData[0]);
-            Log.i("afterTaskExecute", sampleData[7]);
-            setMyListViewAdapter(R.id.listview_currencies);
+
             return true;
         }
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,45 +26,32 @@ import static android.app.PendingIntent.getActivity;
  * Created by tsiriath on 26/10/2017.
  */
 
-    public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
-    Activity myAct;
+public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
+    Activity parentActivity;
     private ArrayAdapter<String> currenciesListAdapter;
     private ListView currenciesListView;
+    private TextView newWelcomeMessage;
 
-        @Override
-        protected String[] doInBackground(Activity... params) {
+    @Override
+    protected String[] doInBackground(Activity... params) {
 
-            myAct = params[0];
-            return fetchCurrenciesData();
-        }
+        parentActivity = params[0];
+        return fetchCurrenciesData();
+     }
 
     @Override
     protected void onPostExecute(String[] strings) {
+
         if (strings!= null){
-            List<String> newData = new ArrayList<>(Arrays.asList(strings));
-            Log.i("onPostExecute", strings[0]);
-            Log.i("onPostExecute", strings[7]);
-            Log.i("onPostExecute", strings[31]);
+            newWelcomeMessage= (TextView)parentActivity.findViewById(R.id.welcomeMessage);
+            newWelcomeMessage.setText(strings[0]);
             currenciesListAdapter = new ArrayAdapter<String>(
-                    myAct,
+                    parentActivity,
                     R.layout.list_item_currencies,
                     R.id.list_item_currencies_textview,
                     Arrays.asList(strings));
-            currenciesListView =  (ListView) myAct.findViewById(R.id.listview_currencies);
+            currenciesListView =  (ListView) parentActivity.findViewById(R.id.listview_currencies);
             currenciesListView.setAdapter(currenciesListAdapter);
-            //remoteObj.getClass()..setMyListViewAdapter(R.id.listview_currencies);
-            //setMyListViewAdapter(R.id.listview_currencies);
-            //updateSampleData(0,strings[1]);
-/*
-        ArrayAdapter adapter = new ArrayAdapter(this(),
-                            R.layout.list_item_currencies,
-                            R.id.list_item_currencies_textview,
-                newData);
-            /*currenciesListAdapter.clear();
-            for(String forecast:strings){
-                forecastListAdapter.add(forecast);
-
-            }*/
         }
         super.onPostExecute(strings);
     }
