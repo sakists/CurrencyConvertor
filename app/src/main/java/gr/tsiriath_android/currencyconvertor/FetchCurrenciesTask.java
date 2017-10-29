@@ -43,8 +43,11 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     protected void onPostExecute(String[] strings) {
 
         if (strings!= null){
+            //Update welcome message
             newWelcomeMessage= (TextView)parentActivity.findViewById(R.id.welcomeMessage);
-            newWelcomeMessage.setText(strings[0]);
+            newWelcomeMessage.setText(strings[strings.length-1]);
+            //Update listview with new values. Welcome message not included/
+            strings = Arrays.copyOfRange (strings,0,strings.length-1);
             currenciesListAdapter = new ArrayAdapter<String>(
                     parentActivity,
                     R.layout.list_item_currencies,

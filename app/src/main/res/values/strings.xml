@@ -4,7 +4,7 @@
     <string name="options">&#8230;</string>
     <string name="facebook_post">Facebook</string>
     <string name="about">About</string>
-    <string name="init_messsage">This is my first android Application.</string>
+    <string name="init_messsage">Base currency is in EUR. Application NOT UPDATED.</string>
     <string name="switch_txt">switch</string>
     <string name="clear_txt">clear</string>
     <string name="hint_cur_1">€ ???</string>
