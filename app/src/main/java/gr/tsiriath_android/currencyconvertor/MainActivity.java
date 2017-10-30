@@ -14,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,21 +46,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
-        btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+        ArrayList<ItemData> list=new ArrayList<>();
+        list.add(new ItemData(" - USD",R.drawable._usd));
+        list.add(new ItemData(" - JPY",R.drawable._jpy));
+        list.add(new ItemData(" - AUD",R.drawable._aud));
+        Spinner sp=(Spinner)findViewById(R.id.spin_cur_1);
+        SpinnerAdapter adapter=new SpinnerAdapter(this,
+                R.layout.spinner_item_currencies,R.id.spin_txt,list);
+        sp.setAdapter(adapter);
+
         btnSwitch = (Button) findViewById(R.id.btn_switch);   //σύνδεση του btnClear με το Button Clear
         btnSwitch.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+        btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
+        btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
-/*
-        dummyList = Arrays.asList(sampleData);
-        currenciesListAdapter = new ArrayAdapter<String>(
-                        this,
-                        R.layout.list_item_currencies,
-                        R.id.list_item_currencies_textview,
-                        dummyList);
-        currenciesListView = (ListView)findViewById(R.id.listview_currencies);
-        currenciesListView.setAdapter(currenciesListAdapter);
-*/
         createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,sampleData);
         setMyListViewAdapter(R.id.listview_currencies);
         //Set focus on switch button
@@ -66,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
         btnSwitch.requestFocus();
     }
 
-    public void createMyArrayAdapter(Activity myAct, int myLayoutID, int myItemID, String[] mySampleData){
+    public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] mySampleData){
 
         currenciesListAdapter = new ArrayAdapter<String>(
-                myAct,
+                myActivity,
                 myLayoutID,
                 myItemID,
                 Arrays.asList(mySampleData));

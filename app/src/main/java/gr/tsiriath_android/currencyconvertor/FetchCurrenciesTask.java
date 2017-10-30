@@ -1,11 +1,8 @@
 package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,11 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.app.PendingIntent.getActivity;
 
 public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     private Activity parentActivity;
