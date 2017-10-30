@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Currencies_array">
+         <item> <cd>AUD</cd>
+                <desc>Australian dollar</desc></item>
+         <item> <cd>BGN</cd>
+                <desc>Bulgarian lev</desc></item>
+         <item> <cd>BRL</cd>
+                <desc>Brazilian real</desc></item>
+         <item> <cd>CAD</cd>
+                <desc>Canadian dollar</desc></item>
+         <item> <cd>CHF</cd>
+                <desc>Swiss franc</desc></item>
+         <item> <cd>CNY</cd>
+                <desc>Chinese yuan </desc></item>
+         <item> <cd>CZK</cd>
+                <desc>Czech koruna</desc></item>
+         <item> <cd>DKK</cd>
+                <desc>Danish krone</desc></item>
+         <item> <cd>EUR</cd>
+                <desc>Euro</desc></item>
+         <item> <cd>GBP</cd>
+                <desc>Pound sterling</desc></item>
+         <item> <cd>HKD</cd>
+                <desc>Hong Kong dollar</desc></item>
+         <item> <cd>HRK</cd>
+                <desc>Croatian kuna</desc></item>
+         <item> <cd>HUF</cd>
+                <desc>Hungarian forint</desc></item>
+         <item> <cd>IDR</cd>
+                <desc>Indonesian rupiah</desc></item>
+         <item> <cd>ILS</cd>
+                <desc>Israeli shekel</desc></item>
+         <item> <cd>INR</cd>
+                <desc>Indian rupee</desc></item>
+         <item> <cd>JPY</cd>
+                <desc>Japanese yen</desc></item>
+         <item> <cd>KRW</cd>
+                <desc>South Korean won</desc></item>
+         <item> <cd>MXN</cd>
+                <desc>Mexican peso</desc></item>
+         <item> <cd>MYR</cd>
+                <desc>Malaysian ringgit</desc></item>
+         <item> <cd>NOK</cd>
+                <desc>Norwegian krone</desc></item>
+         <item> <cd>NZD</cd>
+                <desc>New Zealand dollar</desc></item>
+         <item> <cd>PHP</cd>
+                <desc>Philippine peso</desc></item>
+         <item> <cd>PLN</cd>
+                <desc>Polish zloty</desc></item>
+         <item> <cd>RON</cd>
+                <desc>Romanian leu</desc></item>
+         <item> <cd>RUB</cd>
+             <desc>Russian rouble</desc></item>
+         <item> <cd>SEK</cd>
+                <desc>Swedish krona</desc></item>
+         <item> <cd>SGD</cd>
+             <desc>Singapore dollar</desc></item>
+         <item> <cd>THB</cd>
+             <desc>Thai baht</desc></item>
+         <item> <cd>TRY</cd>
+             <desc>Turkish lira</desc></item>
+         <item> <cd>USD</cd>
+             <desc>US dollar</desc></item>
+         <item> <cd>ZAR</cd>
+                <desc>South African rand</desc></item>
+    </string-array>
+</resources>
