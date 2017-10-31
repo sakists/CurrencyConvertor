@@ -43,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        spnCurList =new ArrayList<>();
-        spnCurList.add(new ItemData(" - USD",R.drawable._usd));
-        spnCurList.add(new ItemData(" - JPY",R.drawable._jpy));
-        spnCurList.add(new ItemData(" - AUD",R.drawable._aud));
+        fillspnCurList();  //
         Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
         Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
         SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
@@ -65,7 +62,33 @@ public class MainActivity extends AppCompatActivity {
         btnSwitch.requestFocus();
     }
 
-    
+    private void fillspnCurList() {
+
+        String[][] XMLCurTable;
+        Integer curImg;
+
+        spnCurList =new ArrayList<>();
+        XMLCurTable = this.getDetailXMLCurTable();      //Get full detail from XMLCurTable
+        int arrayLen = XMLCurTable.length;              //Calculate table size
+        for(int i=0;i<arrayLen ;i++) {
+            curImg = getResources().getIdentifier(XMLCurTable[i][1] , "drawable", getPackageName());   // Convert image name to images's ID
+            spnCurList.add(new ItemData(" - " + XMLCurTable[i][0], curImg));    // Create a new line for spinner
+        }
+    }
+
+    public String[][] getDetailXMLCurTable(){
+        String [][] result;
+        String[] XMLCurTableCopy,XMLCurTableLine;
+
+        XMLCurTableCopy = getResources().getStringArray(R.array.XMLCurTable);    //Copy xml table to array;
+        int arrayLen = XMLCurTableCopy.length;       //Get array size
+        result = new String [arrayLen][3];
+        for(int i=0;i<arrayLen ;i++) {
+            XMLCurTableLine = XMLCurTableCopy[i].split(",");
+            result[i] = XMLCurTableLine;
+        }
+        return result;
+    }
 
     public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] mySampleData){
 

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="XMLCurTable">
-         <item>AUD - Australian dollar</item>
-         <item>BGN - Bulgarian lev</item>
-         <item>BRL - Brazilian real</item>
-         <item>CAD - Canadian dollar</item>
-         <item>CHF - Swiss franc</item>
-         <item>CNY - Chinese yuan </item>
-         <item>CZK - Czech koruna</item>
-         <item>DKK - Danish krone</item>
-         <item>EUR - Euro</item>
-         <item>GBP - Pound sterling</item>
-         <item>HKD - Hong Kong dollar</item>
-         <item>HRK - Croatian kuna</item>
-         <item>HUF - Hungarian forint</item>
-         <item>IDR - Indonesian rupiah</item>
-         <item>ILS - Israeli shekel</item>
-         <item>INR - Indian rupee</item>
-         <item>JPY - Japanese yen</item>
-         <item>KRW - South Korean won</item>
-         <item>MXN - Mexican peso</item>
-         <item>MYR - Malaysian ringgit</item>
-         <item>NOK - Norwegian krone</item>
-         <item>NZD - New Zealand dollar</item>
-         <item>PHP - Philippine peso</item>
-         <item>PLN - Polish zloty</item>
-         <item>RON - Romanian leu</item>
-         <item>RUB - Russian rouble</item>
-         <item>SEK - Swedish krona</item>
-         <item>SGD - Singapore dollar</item>
-         <item>THB - Thai baht</item>
-         <item>TRY - Turkish lira</item>
-         <item>USD - US dollar</item>
-         <item>ZAR - South African rand</item>
+         <item>AUD,_aud,Australian dollar</item>
+         <item>BGN,_bgn,Bulgarian lev</item>
+         <item>BRL,_brl,Brazilian real</item>
+         <item>CAD,_cad,Canadian dollar</item>
+         <item>CHF,_chf,Swiss franc</item>
+         <item>CNY,_cny,Chinese yuan </item>
+         <item>CZK,_czk,Czech koruna</item>
+         <item>DKK,_dkk,Danish krone</item>
+         <item>EUR,_eur,Euro</item>
+         <item>GBP,_gbp,Pound sterling</item>
+         <item>HKD,_hkd,Hong Kong dollar</item>
+         <item>HRK,_hrk,Croatian kuna</item>
+         <item>HUF,_huf,Hungarian forint</item>
+         <item>IDR,_idr,Indonesian rupiah</item>
+         <item>ILS,_ils,Israeli shekel</item>
+         <item>INR,_inr,Indian rupee</item>
+         <item>JPY,_jpy,Japanese yen</item>
+         <item>KRW,_krw,South Korean won</item>
+         <item>MXN,_mxn,Mexican peso</item>
+         <item>MYR,_myr,Malaysian ringgit</item>
+         <item>NOK,_nok,Norwegian krone</item>
+         <item>NZD,_nzd,New Zealand dollar</item>
+         <item>PHP,_php,Philippine peso</item>
+         <item>PLN,_pln,Polish zloty</item>
+         <item>RON,_ron,Romanian leu</item>
+         <item>RUB,_rub,Russian rouble</item>
+         <item>SEK,_sek,Swedish krona</item>
+         <item>SGD,_sgd,Singapore dollar</item>
+         <item>THB,_thb,Thai baht</item>
+         <item>TRY,_try,Turkish lira</item>
+         <item>USD,_usd,US dollar</item>
+         <item>ZAR,_zar,South African rand</item>
     </string-array>
 </resources>
