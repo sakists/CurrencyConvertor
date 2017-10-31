@@ -39,10 +39,12 @@
         android:orientation="horizontal">
         <Spinner
             android:id="@+id/spin_cur_1"
-            android:inputType="numberDecimal|numberSigned"
-            android:hint="@string/hint_spin_cur"
+            android:inputType="text"
+            android:prompt="@string/hint_spin_cur"
+            android:spinnerMode="dialog"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Light.Spinner"
             android:layout_weight="0.35" />
         <Button
             android:id="@+id/btn_switch"
@@ -52,11 +54,13 @@
             android:text="@string/switch_txt" />
         <Spinner
             android:id="@+id/spin_cur_2"
-            android:inputType="numberDecimal|numberSigned"
-            android:hint="@string/hint_spin_cur"
+            android:inputType="text"
+            android:prompt="@string/hint_spin_cur"
+            android:spinnerMode="dialog"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.35"/>
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_weight="0.35" />
     </LinearLayout>
 
     <LinearLayout

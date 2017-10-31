@@ -1,8 +1,6 @@
 package gr.tsiriath_android.currencyconvertor;
 
-/**
- * Created by tsiriath on 30/10/2017.
- */
+/* Created by tsiriath on 30/10/2017. */
 
  class ItemData {
 
@@ -18,7 +16,5 @@ package gr.tsiriath_android.currencyconvertor;
         return txt;
     }
 
-    Integer getImageId(){
-        return imgId;
-    }
+    Integer getImageId(){ return imgId; }
 }

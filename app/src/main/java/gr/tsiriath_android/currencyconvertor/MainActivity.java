@@ -24,18 +24,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnSwitch,btnClear;
+    private Spinner spnCur1,spbCur2,spnTmp;
     private EditText edTxtCur1,edTxtCur2;
-    private List<String> dummyList;
+
     private ArrayAdapter<String> currenciesListAdapter;
+    private ArrayList<ItemData> spnCurList;
     private ListView currenciesListView;
     private String[] sampleData = {
             "AUD - 1.0000",
             "BGN - 1.0000",
-            "BRL - 1.0000",
-            "CAD - 1.0000",
-            "CHF - 1.0000",
-            "CNY - 7.0000",
-            "CZK - 1.0000",
             "DKK - 1.0000"};
 
     @Override
@@ -46,17 +43,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ArrayList<ItemData> list=new ArrayList<>();
-        list.add(new ItemData(" - USD",R.drawable._usd));
-        list.add(new ItemData(" - JPY",R.drawable._jpy));
-        list.add(new ItemData(" - AUD",R.drawable._aud));
-        Spinner sp=(Spinner)findViewById(R.id.spin_cur_1);
-        SpinnerAdapter adapter=new SpinnerAdapter(this,
-                R.layout.spinner_item_currencies,R.id.spin_txt,list);
-        sp.setAdapter(adapter);
+        spnCurList =new ArrayList<>();
+        spnCurList.add(new ItemData(" - USD",R.drawable._usd));
+        spnCurList.add(new ItemData(" - JPY",R.drawable._jpy));
+        spnCurList.add(new ItemData(" - AUD",R.drawable._aud));
+        Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
+        Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
+        SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
+        sp1.setAdapter(adapter);
+        sp2.setAdapter(adapter);
 
         btnSwitch = (Button) findViewById(R.id.btn_switch);   //σύνδεση του btnClear με το Button Clear
-        btnSwitch.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+        btnSwitch.setOnClickListener(switchOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
@@ -66,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         btnSwitch.setFocusableInTouchMode(true);
         btnSwitch.requestFocus();
     }
+
+    
 
     public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] mySampleData){
 
@@ -96,7 +96,17 @@ public class MainActivity extends AppCompatActivity {
         edTxtCur2.setText("");
     }
 
+    private View.OnClickListener switchOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            btnSwitchClicked();  //κλήση της btnClearClicked
+        }
+    };
 
+    private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
+
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
