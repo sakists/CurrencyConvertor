@@ -2,8 +2,6 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,10 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fillspnCurList();  //
+        spnCurList = fillspnCurList();  //Create parametrical spinner table
         Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
         Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
         SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
@@ -62,18 +59,19 @@ public class MainActivity extends AppCompatActivity {
         btnSwitch.requestFocus();
     }
 
-    private void fillspnCurList() {
+    private ArrayList<ItemData> fillspnCurList() {
 
         String[][] XMLCurTable;
         Integer curImg;
 
-        spnCurList =new ArrayList<>();
+        ArrayList<ItemData> result =new ArrayList<>();
         XMLCurTable = this.getDetailXMLCurTable();      //Get full detail from XMLCurTable
         int arrayLen = XMLCurTable.length;              //Calculate table size
         for(int i=0;i<arrayLen ;i++) {
             curImg = getResources().getIdentifier(XMLCurTable[i][1] , "drawable", getPackageName());   // Convert image name to images's ID
-            spnCurList.add(new ItemData(" - " + XMLCurTable[i][0], curImg));    // Create a new line for spinner
+            result.add(new ItemData(" - " + XMLCurTable[i][0], curImg));    // Create a new line for spinner
         }
+        return result;
     }
 
     public String[][] getDetailXMLCurTable(){
