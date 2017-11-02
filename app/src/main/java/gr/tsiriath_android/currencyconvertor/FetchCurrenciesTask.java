@@ -1,10 +1,12 @@
 package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -18,8 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
+ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     private Activity parentActivity;
+    private Context myContext;
     private ArrayAdapter<String> currenciesListAdapter;
     private ArrayList<ItemData> MySpnCurList;
     private ListView currenciesListView;
@@ -29,6 +32,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     protected String[] doInBackground(Activity... params) {
 
         parentActivity = params[0];
+        myContext = parentActivity.getApplicationContext();
         return fetchCurrenciesData();
      }
 
@@ -41,7 +45,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             newWelcomeMessage.setText(strings[strings.length-1]);
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
-            currenciesListAdapter = new ArrayAdapter<String>(
+            currenciesListAdapter = new ArrayAdapter<>(
                     parentActivity,
                     R.layout.list_item_currencies,
                     R.id.list_item_currencies_textview,
@@ -49,9 +53,30 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             currenciesListView =  parentActivity.findViewById(R.id.listview_currencies);
             currenciesListView.setAdapter(currenciesListAdapter);
 
+            MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
+            Spinner sp1=parentActivity.findViewById(R.id.spin_cur_1);
+            Spinner sp2=parentActivity.findViewById(R.id.spin_cur_2);
+            SpinnerAdapter adapter=new SpinnerAdapter(parentActivity,R.layout.spinner_item_currencies,R.id.spin_txt,MySpnCurList);
+            sp1.setAdapter(adapter);
+            sp2.setAdapter(adapter);
 
         }
         super.onPostExecute(strings);
+    }
+
+
+    private ArrayList<ItemData> updSpnCurList(String[] myStrings) {
+
+        String curTxt;
+        Integer curImg;
+
+        ArrayList<ItemData> result =new ArrayList<>();
+        for(String rowStrings:myStrings){       //For each sting in mystrings
+            curTxt =  rowStrings.substring(0,3);    //Get currency text
+            curImg =  (new LibCurrenciesXML(myContext)).findImgID(curTxt);  //find currency flag
+            result.add(new ItemData(" - " +curTxt, curImg));    // Create a new line for spinner
+        }
+       return result;
     }
 
         private String[] fetchCurrenciesData() {
@@ -62,7 +87,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             BufferedReader reader = null;
 
             // Will contain the raw JSON response as a string.
-            String currenciesJsonStr = "";
+            String currenciesJsonStr;
 
             try {
                 // Construct the URL for the api.fixer.io query
@@ -90,6 +115,7 @@ public class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
 
                     if (buffer.length() == 0) {
                         // Stream was empty.  No point in parsing.
+                        return null;
                     }else {
                         currenciesJsonStr = buffer.toString();
                         Log.i("FetchCurrenciesTask", currenciesJsonStr);
