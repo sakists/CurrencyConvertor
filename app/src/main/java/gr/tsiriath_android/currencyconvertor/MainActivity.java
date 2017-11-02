@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Integer curImg;
 
         ArrayList<ItemData> result =new ArrayList<>();
-        XMLCurTable = this.getDetailXMLCurTable();      //Get full detail from XMLCurTable
+        XMLCurTable = (new LibCurrenciesXML(this)).getDetailXMLCurTable();
+        //XMLCurTable = this.getDetailXMLCurTable2();      //Get full detail from XMLCurTable
         int arrayLen = XMLCurTable.length;              //Calculate table size
         for(int i=0;i<arrayLen ;i++) {
             curImg = getResources().getIdentifier(XMLCurTable[i][1] , "drawable", getPackageName());   // Convert image name to images's ID
@@ -74,19 +75,6 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    public String[][] getDetailXMLCurTable(){
-        String [][] result;
-        String[] XMLCurTableCopy,XMLCurTableLine;
-
-        XMLCurTableCopy = getResources().getStringArray(R.array.XMLCurTable);    //Copy xml table to array;
-        int arrayLen = XMLCurTableCopy.length;       //Get array size
-        result = new String [arrayLen][3];
-        for(int i=0;i<arrayLen ;i++) {
-            XMLCurTableLine = XMLCurTableCopy[i].split(",");
-            result[i] = XMLCurTableLine;
-        }
-        return result;
-    }
 
     public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] mySampleData){
 
