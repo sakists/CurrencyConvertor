@@ -12,7 +12,7 @@ class LibCurrenciesXML {
     private Context context;
     private String [][] fullDetailArray;
 
-    protected LibCurrenciesXML(Context myContext ){
+    LibCurrenciesXML(Context myContext ){
         String[] XMLCurTableCopy,XMLCurTableLine;
 
         this.context = myContext;
@@ -27,7 +27,7 @@ class LibCurrenciesXML {
     }
 
 
-    protected Integer findImgID(String searchCur){
+    Integer findImgID(String searchCur){
         Integer curImg;
 
         curImg=context.getResources().getIdentifier("_noflag" , "drawable", context.getPackageName());  //set initial value _noflag.png
@@ -51,7 +51,7 @@ class LibCurrenciesXML {
     }
 
 
-    protected String[][] getDetailXMLCurTable(){
+    String[][] getDetailXMLCurTable(){
 
         return fullDetailArray;
     }

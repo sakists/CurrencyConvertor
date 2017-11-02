@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="XMLCurTable">
+         <item>EUR,_eur,Euro</item>
          <item>AUD,_aud,Australian dollar</item>
          <item>BGN,_bgn,Bulgarian lev</item>
          <item>BRL,_brl,Brazilian real</item>
@@ -9,7 +10,6 @@
          <item>CNY,_cny,Chinese yuan </item>
          <item>CZK,_czk,Czech koruna</item>
          <item>DKK,_dkk,Danish krone</item>
-         <item>EUR,_eur,Euro</item>
          <item>GBP,_gbp,Pound sterling</item>
          <item>HKD,_hkd,Hong Kong dollar</item>
          <item>HRK,_hrk,Croatian kuna</item>

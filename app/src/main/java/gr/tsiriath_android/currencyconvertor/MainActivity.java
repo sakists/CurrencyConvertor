@@ -20,13 +20,8 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnSwitch,btnClear;
-    private Spinner spnCur1,spbCur2,spnTmp;
-    private EditText edTxtCur1,edTxtCur2;
-
+    private Spinner spnCur1,spbCur2;
     private ArrayAdapter<String> currenciesListAdapter;
-    private ArrayList<ItemData> spnCurList;
-    private ListView currenciesListView;
     private String[] sampleData = {
             "AUD - 1.0000",
             "BGN - 1.0000",
@@ -34,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button btnSwitch,btnClear;
+        ArrayList<ItemData> spnCurList;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -41,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         spnCurList = fillspnCurList();  //Create parametrical spinner table
-        Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
-        Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
+        Spinner spnCur1=(Spinner)findViewById(R.id.spin_cur_1);
+        Spinner spbCur2=(Spinner)findViewById(R.id.spin_cur_2);
         SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
-        sp1.setAdapter(adapter);
-        sp2.setAdapter(adapter);
+        spnCur1.setAdapter(adapter);
+        spbCur2.setAdapter(adapter);
 
         btnSwitch = (Button) findViewById(R.id.btn_switch);   //σύνδεση του btnClear με το Button Clear
         btnSwitch.setOnClickListener(switchOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
@@ -85,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setMyListViewAdapter(int myListViewID){
+        ListView currenciesListView;
 
         currenciesListView =  (ListView)findViewById(myListViewID);
         currenciesListView.setAdapter(currenciesListAdapter);
@@ -98,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void btnClearClicked() {    // Υλοποίηση της btnClearClicked
+        EditText edTxtCur1,edTxtCur2;
+
         edTxtCur1=(EditText) findViewById(R.id.edt_cur_1);
         edTxtCur1.setText("");
         edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);

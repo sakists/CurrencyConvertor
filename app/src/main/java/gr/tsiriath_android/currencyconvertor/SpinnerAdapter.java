@@ -21,7 +21,7 @@ class SpinnerAdapter extends ArrayAdapter {
     private ArrayList<ItemData> list;
     private LayoutInflater inflater;
 
-    public SpinnerAdapter(Activity context, int groupid, int id, ArrayList<ItemData> list){
+    SpinnerAdapter(Activity context, int groupid, int id, ArrayList<ItemData> list){
         super(context,id,list);
         this.list=list;
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

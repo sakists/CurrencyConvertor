@@ -9,7 +9,7 @@ import java.util.List;
 
 class CurrenciesJsonParser {
 
-    public static List<String> getCurrenciesFromJson(String jsonString) {
+    static List<String> getCurrenciesFromJson(String jsonString) {
 
         List<String> results = new ArrayList<>();
         String resline;

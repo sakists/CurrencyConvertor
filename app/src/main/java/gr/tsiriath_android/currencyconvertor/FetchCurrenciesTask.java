@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.ViewDebug;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,10 +24,7 @@ import java.util.List;
  class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     private Activity parentActivity;
     private Context myContext;
-    private ArrayAdapter<String> currenciesListAdapter;
-    private ArrayList<ItemData> MySpnCurList;
-    private ListView currenciesListView;
-    private TextView newWelcomeMessage;
+
 
     @Override
     protected String[] doInBackground(Activity... params) {
@@ -38,6 +36,10 @@ import java.util.List;
 
     @Override
     protected void onPostExecute(String[] strings) {
+        ArrayAdapter<String> currenciesListAdapter;
+        ArrayList<ItemData> MySpnCurList;
+        ListView currenciesListView;
+        TextView newWelcomeMessage;
 
         if (strings!= null){
             //Update welcome message. Its the array's last element
@@ -56,8 +58,8 @@ import java.util.List;
             MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
             Spinner sp1=parentActivity.findViewById(R.id.spin_cur_1);
             Spinner sp2=parentActivity.findViewById(R.id.spin_cur_2);
-            Integer oldSp1 =sp1.getSelectedItemPosition()+1;      // Save old sp1 item position
-            Integer oldSp2 =sp2.getSelectedItemPosition()+1;      // Save old sp2 item position
+            Integer oldSp1 =sp1.getSelectedItemPosition();      // Save old sp1 item position
+            Integer oldSp2 =sp2.getSelectedItemPosition();      // Save old sp2 item position
             SpinnerAdapter adapter=new SpinnerAdapter(parentActivity,R.layout.spinner_item_currencies,R.id.spin_txt,MySpnCurList);
             sp1.setAdapter(adapter);
             sp2.setAdapter(adapter);
@@ -104,7 +106,7 @@ import java.util.List;
 
                 // Read the input stream into a String
                 InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 if (inputStream != null) { // If stream is not empty
                     reader = new BufferedReader(new InputStreamReader(inputStream));
 
