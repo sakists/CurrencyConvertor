@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * Created by tsiriath on 30/10/2017.
  */
 
-public class SpinnerAdapter extends ArrayAdapter {
-    int groupid;
-    Activity context;
-    ArrayList<ItemData> list;
-    LayoutInflater inflater;
+class SpinnerAdapter extends ArrayAdapter {
+    private int groupid;
+    private Activity context;
+    private ArrayList<ItemData> list;
+    private LayoutInflater inflater;
 
     public SpinnerAdapter(Activity context, int groupid, int id, ArrayList<ItemData> list){
         super(context,id,list);
@@ -30,9 +30,9 @@ public class SpinnerAdapter extends ArrayAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent ){
         View itemView=inflater.inflate(groupid,parent,false);
-        ImageView imageView=(ImageView)itemView.findViewById(R.id.spin_img);
+        ImageView imageView=itemView.findViewById(R.id.spin_img);
         imageView.setImageResource(list.get(position).getImageId());
-        TextView textView=(TextView)itemView.findViewById(R.id.spin_txt);
+        TextView textView=itemView.findViewById(R.id.spin_txt);
         textView.setText(list.get(position).getText());
         return itemView;
     }

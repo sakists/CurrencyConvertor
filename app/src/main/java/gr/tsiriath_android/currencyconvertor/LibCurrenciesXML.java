@@ -7,12 +7,12 @@ import android.util.Log;
  * Created by tsiriath on 2/11/2017.
  */
 
-public class LibCurrenciesXML {
+class LibCurrenciesXML {
 
     private Context context;
     private String [][] fullDetailArray;
 
-    public LibCurrenciesXML(Context myContext ){
+    protected LibCurrenciesXML(Context myContext ){
         String[] XMLCurTableCopy,XMLCurTableLine;
 
         this.context = myContext;
@@ -27,7 +27,7 @@ public class LibCurrenciesXML {
     }
 
 
-    public Integer findImgID(String searchCur){
+    protected Integer findImgID(String searchCur){
         Integer curImg;
 
         curImg=context.getResources().getIdentifier("_noflag" , "drawable", context.getPackageName());  //set initial value _noflag.png
@@ -51,7 +51,7 @@ public class LibCurrenciesXML {
     }
 
 
-    public String[][] getDetailXMLCurTable(){
+    protected String[][] getDetailXMLCurTable(){
 
         return fullDetailArray;
     }

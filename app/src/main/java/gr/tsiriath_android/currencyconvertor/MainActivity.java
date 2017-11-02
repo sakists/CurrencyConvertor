@@ -113,8 +113,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
 
-
+        Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
+        Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
+        Integer oldSp1 =sp1.getSelectedItemPosition();      // Save old sp1 item position
+        sp1.setSelection(sp2.getSelectedItemPosition());    // Change sp1 itemPos with sp2 itemPos
+        sp2.setSelection(oldSp1);                           // Change sp2 with old sp1 itemPos
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

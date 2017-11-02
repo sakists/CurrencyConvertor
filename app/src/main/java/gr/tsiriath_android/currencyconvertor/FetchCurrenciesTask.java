@@ -56,10 +56,13 @@ import java.util.List;
             MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
             Spinner sp1=parentActivity.findViewById(R.id.spin_cur_1);
             Spinner sp2=parentActivity.findViewById(R.id.spin_cur_2);
+            Integer oldSp1 =sp1.getSelectedItemPosition()+1;      // Save old sp1 item position
+            Integer oldSp2 =sp2.getSelectedItemPosition()+1;      // Save old sp2 item position
             SpinnerAdapter adapter=new SpinnerAdapter(parentActivity,R.layout.spinner_item_currencies,R.id.spin_txt,MySpnCurList);
             sp1.setAdapter(adapter);
             sp2.setAdapter(adapter);
-
+            sp1.setSelection(oldSp1);    // Restore sp1 itemPos
+            sp2.setSelection(oldSp2);    // Restore sp2 itemPos
         }
         super.onPostExecute(strings);
     }
