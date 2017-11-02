@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Integer curImg;
 
         ArrayList<ItemData> result =new ArrayList<>();
-        XMLCurTable = (new LibCurrenciesXML(this)).getDetailXMLCurTable();
-        //XMLCurTable = this.getDetailXMLCurTable2();      //Get full detail from XMLCurTable
+        XMLCurTable = (new LibCurrenciesXML(this)).getDetailXMLCurTable();   //Get full detail from XMLCurTable
         int arrayLen = XMLCurTable.length;              //Calculate table size
         for(int i=0;i<arrayLen ;i++) {
             curImg = getResources().getIdentifier(XMLCurTable[i][1] , "drawable", getPackageName());   // Convert image name to images's ID
