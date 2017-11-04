@@ -45,12 +45,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@android:style/Widget.Holo.Light.Spinner"
-            android:layout_weight="0.35" />
+            android:layout_weight="0.30" />
         <Button
             android:id="@+id/btn_switch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.30"
+            android:layout_weight="0.40"
             android:text="@string/switch_txt" />
         <Spinner
             android:id="@+id/spin_cur_2"
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@android:style/Widget.Holo.Light.Spinner"
-            android:layout_weight="0.35" />
+            android:layout_weight="0.30" />
     </LinearLayout>
 
     <LinearLayout
