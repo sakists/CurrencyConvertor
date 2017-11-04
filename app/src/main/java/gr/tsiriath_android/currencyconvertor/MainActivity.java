@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,16 +21,17 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner spnCur1,spbCur2;
     private ArrayAdapter<String> currenciesListAdapter;
-    private String[] sampleData = {
-            "AUD - 1.0000",
-            "BGN - 1.0000",
-            "DKK - 1.0000"};
+    private Spinner spnCur1,spnCur2;
+    static String[] masterData = {
+            "EUR - 1.0000",
+            "AUD - 1.5000",
+            "BGN - 2.0000",
+            "DKK - 3.0000"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button btnSwitch,btnClear;
+        Button btnSwitch,btnCalc,btnClear;
         ArrayList<ItemData> spnCurList;
 
         super.onCreate(savedInstanceState);
@@ -38,20 +40,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Create Both spinners with images and text.
         spnCurList = fillspnCurList();  //Create parametrical spinner table
-        Spinner spnCur1=(Spinner)findViewById(R.id.spin_cur_1);
-        Spinner spbCur2=(Spinner)findViewById(R.id.spin_cur_2);
+        spnCur1=(Spinner)findViewById(R.id.spin_cur_1);
+        spnCur2=(Spinner)findViewById(R.id.spin_cur_2);
         SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
         spnCur1.setAdapter(adapter);
-        spbCur2.setAdapter(adapter);
+        spnCur2.setAdapter(adapter);
 
-        btnSwitch = (Button) findViewById(R.id.btn_switch);   //σύνδεση του btnClear με το Button Clear
-        btnSwitch.setOnClickListener(switchOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
+        btnSwitch = (Button) findViewById(R.id.btn_switch); //σύνδεση του btnSwitch με το Button Switch
+        btnCalc = (Button) findViewById(R.id.btn_calc);     //σύνδεση του btnCalc με το Button Calc
         btnClear = (Button) findViewById(R.id.btn_clear);   //σύνδεση του btnClear με το Button Clear
+
+        btnSwitch.setOnClickListener(switchOnClickListener);//κλήση δημιουργίας listener για το Button Switch
+        btnCalc.setOnClickListener(calcOnClickListener);    //κλήση δημιουργίας listener για το Button Calc
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
-        createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,sampleData);
+        createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,masterData);
         setMyListViewAdapter(R.id.listview_currencies);
+
         //Set focus on switch button
         btnSwitch.setFocusableInTouchMode(true);
         btnSwitch.requestFocus();
@@ -72,14 +79,13 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-
-    public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] mySampleData){
+    public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] newMasterData){
 
         currenciesListAdapter = new ArrayAdapter<String>(
                 myActivity,
                 myLayoutID,
                 myItemID,
-                Arrays.asList(mySampleData));
+                Arrays.asList(newMasterData));
     }
 
     public void setMyListViewAdapter(int myListViewID){
@@ -89,12 +95,65 @@ public class MainActivity extends AppCompatActivity {
         currenciesListView.setAdapter(currenciesListAdapter);
     }
 
+    static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
+
+        masterData = new String[newMasterData.length];         //Clear  data from MasterData
+        masterData = Arrays.copyOf(newMasterData, newMasterData.length);
+    }
+
+    private View.OnClickListener switchOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            btnSwitchClicked();  //κλήση της btnClearClicked
+        }
+    };
+
+    private View.OnClickListener calcOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            btnCalcClicked();  //κλήση της btnCalcClicked
+        }
+    };
+
     private View.OnClickListener clearOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             btnClearClicked();  //κλήση της btnClearClicked
         }
     };
+
+
+    private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
+
+        spnCur1=(Spinner)findViewById(R.id.spin_cur_1);
+        spnCur2=(Spinner)findViewById(R.id.spin_cur_2);
+        Integer oldSp1 =spnCur1.getSelectedItemPosition();          // Save old sp1 item position
+        spnCur1.setSelection(spnCur2.getSelectedItemPosition());    // Change sp1 itemPos with sp2 itemPos
+        spnCur2.setSelection(oldSp1);                               // Change sp2 with old sp1 itemPos
+    }
+
+    private void btnCalcClicked() {    // Υλοποίηση της btnCalcClicked
+        Double value,conv1,conv2,result;
+        String cur1,cur2;
+        String resTxt;
+        EditText edTxtCur1,edTxtCur2;
+
+        edTxtCur1=(EditText) findViewById(R.id.edt_cur_1);
+        value = Double.valueOf(edTxtCur1.getText().toString());
+        spnCur1=(Spinner)findViewById(R.id.spin_cur_1);     //Get 1st spinner object
+        spnCur2=(Spinner)findViewById(R.id.spin_cur_2);     //Get 2bd spinner object
+        TextView textView1 = spnCur1.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 1st spinner object
+        cur1 = textView1.getText().toString().substring(3);                             //Get text from TextView
+        TextView textView2 = spnCur2.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 2nd spinner object
+        cur2 = textView2.getText().toString().substring(3);                             //Get text from TextView
+        conv1 = findCurrency(cur1);
+        conv2 = findCurrency(cur2);
+        result = (value*conv2)/conv1;
+        Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
+        resTxt = result.toString();
+        edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
+        edTxtCur2.setText(resTxt);
+    }
 
     private void btnClearClicked() {    // Υλοποίηση της btnClearClicked
         EditText edTxtCur1,edTxtCur2;
@@ -105,20 +164,15 @@ public class MainActivity extends AppCompatActivity {
         edTxtCur2.setText("");
     }
 
-    private View.OnClickListener switchOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            btnSwitchClicked();  //κλήση της btnClearClicked
+    public Double findCurrency(String curToSearch){
+        Double result = 0.001;
+
+        for(String rowMasterData: masterData){
+            Log.i("findCurrency-Calc", curToSearch + " = > " + rowMasterData);
+            if (curToSearch.equals(rowMasterData.substring(0,3)))
+                return Double.valueOf(rowMasterData.substring(6));
         }
-    };
-
-    private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
-
-        Spinner sp1=(Spinner)findViewById(R.id.spin_cur_1);
-        Spinner sp2=(Spinner)findViewById(R.id.spin_cur_2);
-        Integer oldSp1 =sp1.getSelectedItemPosition();      // Save old sp1 item position
-        sp1.setSelection(sp2.getSelectedItemPosition());    // Change sp1 itemPos with sp2 itemPos
-        sp2.setSelection(oldSp1);                           // Change sp2 with old sp1 itemPos
+        return result;
     }
 
     @Override

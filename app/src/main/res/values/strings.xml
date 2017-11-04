@@ -5,8 +5,9 @@
     <string name="facebook_post">Facebook</string>
     <string name="about">About</string>
     <string name="init_messsage">Base currency is in EUR. Application NOT UPDATED.</string>
-    <string name="switch_txt">switch</string>
-    <string name="clear_txt">clear</string>
+    <string name="switch_txt">Switch</string>
+    <string name="clear_txt">Clear</string>
+    <string name="calc_txt">Calc</string>
     <string name="hint_cur_1">€ ???</string>
     <string name="hint_cur_2">$ ???</string>
     <string name="hint_spin_cur">Choose currency</string>

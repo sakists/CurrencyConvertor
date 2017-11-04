@@ -3,7 +3,6 @@ package gr.tsiriath_android.currencyconvertor;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ class CurrenciesJsonParser {
             Log.i("JSONParser- count",  Integer.toString(currenciesList.length()));
             resline = "EUR - 1.000";
             results.add(resline);
-            resline = currenciesList.toString().replace("\"","");   //convert to string and remove char "
+            resline = currenciesList.toString().replace("\"","");   //convert to string and remove char \
             resline = resline.replace(":"," - ");   //replace ":" with " - "
             resline = resline.replace("{","");      //remove char {
             resline = resline.replace("}","");      //remove char }

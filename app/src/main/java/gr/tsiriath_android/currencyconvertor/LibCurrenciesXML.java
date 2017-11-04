@@ -52,7 +52,6 @@ class LibCurrenciesXML {
 
 
     String[][] getDetailXMLCurTable(){
-
         return fullDetailArray;
     }
 }

@@ -47,6 +47,9 @@ import java.util.List;
             newWelcomeMessage.setText(strings[strings.length-1]);
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
+
+            MainActivity.newMasterData(strings);
+
             currenciesListAdapter = new ArrayAdapter<>(
                     parentActivity,
                     R.layout.list_item_currencies,
@@ -55,6 +58,8 @@ import java.util.List;
             currenciesListView =  parentActivity.findViewById(R.id.listview_currencies);
             currenciesListView.setAdapter(currenciesListAdapter);
 
+
+            //Update spinners with new data from data form JSON string
             MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
             Spinner sp1=parentActivity.findViewById(R.id.spin_cur_1);
             Spinner sp2=parentActivity.findViewById(R.id.spin_cur_2);
