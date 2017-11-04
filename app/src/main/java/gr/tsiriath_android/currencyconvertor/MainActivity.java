@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> currenciesListAdapter;
     private Spinner spnCur1,spnCur2;
-    static String[] masterData = {
+    private static  String[] masterData = {
             "EUR - 1.0000",
             "AUD - 1.5000",
             "BGN - 2.0000",
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         setMyListViewAdapter(R.id.listview_currencies);
 
         //Set focus on switch button
-        btnSwitch.setFocusableInTouchMode(true);
-        btnSwitch.requestFocus();
+        //btnSwitch.setFocusableInTouchMode(true);
+        spnCur2.requestFocus();
     }
 
     private ArrayList<ItemData> fillspnCurList() {
@@ -139,20 +139,24 @@ public class MainActivity extends AppCompatActivity {
         EditText edTxtCur1,edTxtCur2;
 
         edTxtCur1=(EditText) findViewById(R.id.edt_cur_1);
-        value = Double.valueOf(edTxtCur1.getText().toString());
-        spnCur1=(Spinner)findViewById(R.id.spin_cur_1);     //Get 1st spinner object
-        spnCur2=(Spinner)findViewById(R.id.spin_cur_2);     //Get 2bd spinner object
-        TextView textView1 = spnCur1.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 1st spinner object
-        cur1 = textView1.getText().toString().substring(3);                             //Get text from TextView
-        TextView textView2 = spnCur2.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 2nd spinner object
-        cur2 = textView2.getText().toString().substring(3);                             //Get text from TextView
-        conv1 = findCurrency(cur1);
-        conv2 = findCurrency(cur2);
-        result = (value*conv2)/conv1;
-        Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
-        resTxt = result.toString();
-        edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
-        edTxtCur2.setText(resTxt);
+        if (!edTxtCur1.getText().toString().equals("")) {
+            value = Double.valueOf(edTxtCur1.getText().toString());
+            spnCur1=(Spinner)findViewById(R.id.spin_cur_1);     //Get 1st spinner object
+            spnCur2=(Spinner)findViewById(R.id.spin_cur_2);     //Get 2bd spinner object
+            TextView textView1 = spnCur1.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 1st spinner object
+            cur1 = textView1.getText().toString().substring(3);                             //Get string from TextView of 1st spinner
+            TextView textView2 = spnCur2.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 2nd spinner object
+            cur2 = textView2.getText().toString().substring(3);                             //Get string from TextView of 2nd spinner
+            conv1 = findCurrency(cur1);
+            conv2 = findCurrency(cur2);
+            result = (value*conv2)/conv1;
+            result = Double.valueOf(String.format("%.2f",result));  //Reduce results to 2 decimal points
+            Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
+            resTxt = result.toString();
+            edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
+            edTxtCur2.setText(resTxt);
+        }
+
     }
 
     private void btnClearClicked() {    // Υλοποίηση της btnClearClicked
@@ -168,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         Double result = 0.001;
 
         for(String rowMasterData: masterData){
-            Log.i("findCurrency-Calc", curToSearch + " = > " + rowMasterData);
+            //Log.i("findCurrency-Calc", curToSearch + " = > " + rowMasterData);
             if (curToSearch.equals(rowMasterData.substring(0,3)))
                 return Double.valueOf(rowMasterData.substring(6));
         }

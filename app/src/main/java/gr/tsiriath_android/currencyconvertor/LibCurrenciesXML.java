@@ -23,7 +23,7 @@ class LibCurrenciesXML {
             XMLCurTableLine = XMLCurTableCopy[i].split(",");
             fullDetailArray[i] = XMLCurTableLine;
         }
-        Log.i("LibCurrenciesXML - Len ", Integer.toString(arrayLen));
+        //Log.i("LibCurrenciesXML - Len ", Integer.toString(arrayLen));
     }
 
 

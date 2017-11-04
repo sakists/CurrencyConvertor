@@ -48,7 +48,7 @@ import java.util.List;
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
 
-            MainActivity.newMasterData(strings);
+            MainActivity.newMasterData(strings); //Update MasterData in MainActivity with new values
 
             currenciesListAdapter = new ArrayAdapter<>(
                     parentActivity,
@@ -58,18 +58,17 @@ import java.util.List;
             currenciesListView =  parentActivity.findViewById(R.id.listview_currencies);
             currenciesListView.setAdapter(currenciesListAdapter);
 
-
             //Update spinners with new data from data form JSON string
             MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
-            Spinner sp1=parentActivity.findViewById(R.id.spin_cur_1);
-            Spinner sp2=parentActivity.findViewById(R.id.spin_cur_2);
-            Integer oldSp1 =sp1.getSelectedItemPosition();      // Save old sp1 item position
-            Integer oldSp2 =sp2.getSelectedItemPosition();      // Save old sp2 item position
+            Spinner spnCur1=parentActivity.findViewById(R.id.spin_cur_1);   //Link spnCur1 variable with spin_cur_1
+            Spinner spnCur2=parentActivity.findViewById(R.id.spin_cur_2);   //Link spnCur1 variable with spin_cur_2
+            Integer oldSp1 =spnCur1.getSelectedItemPosition();      // Save old spnCur1 selected item position
+            Integer oldSp2 =spnCur2.getSelectedItemPosition();      // Save old spnCur2 selected item position
             SpinnerAdapter adapter=new SpinnerAdapter(parentActivity,R.layout.spinner_item_currencies,R.id.spin_txt,MySpnCurList);
-            sp1.setAdapter(adapter);
-            sp2.setAdapter(adapter);
-            sp1.setSelection(oldSp1);    // Restore sp1 itemPos
-            sp2.setSelection(oldSp2);    // Restore sp2 itemPos
+            spnCur1.setAdapter(adapter);    // Update spnCur1's Adapter
+            spnCur2.setAdapter(adapter);    // Update spnCur2's Adapter
+            spnCur1.setSelection(oldSp1);   // Restore sp1 itemPos
+            spnCur2.setSelection(oldSp2);   // Restore sp2 itemPos
         }
         super.onPostExecute(strings);
     }
@@ -138,6 +137,7 @@ import java.util.List;
                 return null;
 
             } catch (IOException e) {
+                Log.e("urlConnection", "inputStream=NULL ");
                 Log.e("PlaceholderFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
                 // to parse it.
@@ -153,6 +153,8 @@ import java.util.List;
                     }
                 }
             }
+            //String[] tmp = {"Cannot fetch data from ECB. Please check Internet connection."};
+            //return tmp;
             return null;
         }
     }
