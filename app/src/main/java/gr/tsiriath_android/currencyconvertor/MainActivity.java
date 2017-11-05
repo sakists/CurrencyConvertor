@@ -21,7 +21,7 @@ import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             conv1 = findCurrency(cur1);
             conv2 = findCurrency(cur2);
             result = (value*conv2)/conv1;
-            result = Double.valueOf(String.format("%.2f",result));  //Reduce results to 2 decimal points
+            result = Double.valueOf(String.format(Locale.getDefault(),"%.2f",result));  //Reduce results to 2 decimal points
             Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
             resTxt = result.toString();
             edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Double findCurrency(String curToSearch){
-        Double result = 0.001;
+        Double result = 0.00001;
 
         for(String rowMasterData: masterData){
             //Log.i("findCurrency-Calc", curToSearch + " = > " + rowMasterData);
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.m23_fb_share_button) {
             ShareDialog shareDialog = new ShareDialog(this);
             // Sharing the content to facebook
-            if (ShareDialog.canShow(ShareLinkContent.class)) {
+            if (shareDialog.canShow(ShareLinkContent.class)) {
                 Log.i("FB - Share content", "ShareDialog.canShow(ShareLinkContent.class)=TRUE");
                 ShareLinkContent content = new ShareLinkContent.Builder()
                         .setContentUrl(Uri.parse("https://github.com/sakists/CurrencyConvertor")).build();
