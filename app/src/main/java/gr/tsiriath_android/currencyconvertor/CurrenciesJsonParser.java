@@ -4,6 +4,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class CurrenciesJsonParser {
@@ -27,10 +28,7 @@ class CurrenciesJsonParser {
             resline = resline.replace("{","");      //remove char {
             resline = resline.replace("}","");      //remove char }
             String[] CurArray = resline.split(","); // split string to array
-            for (int i=0; i <currenciesList.length();i++ ) {
-                //Log.i("CurrenciesJSONParser", CurArray[i]);
-                results.add(CurArray[i]);
-            }
+            Collections.addAll(results, CurArray);
             resline = "Base currency is in " + curBase + ". Last update: " + curDate;
             results.add(resline);
             Log.i("JSONParser - Last line", resline);

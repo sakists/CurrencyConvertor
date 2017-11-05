@@ -63,7 +63,7 @@ import java.util.List;
             Spinner spnCur2=parentActivity.findViewById(R.id.spin_cur_2);   //Link spnCur1 variable with spin_cur_2
             Integer oldSp1 =spnCur1.getSelectedItemPosition();      // Save old spnCur1 selected item position
             Integer oldSp2 =spnCur2.getSelectedItemPosition();      // Save old spnCur2 selected item position
-            SpinnerAdapter adapter=new SpinnerAdapter(parentActivity,R.layout.spinner_item_currencies,R.id.spin_txt,MySpnCurList);
+            SpinnerAdapter adapter=new SpinnerAdapter(parentActivity, MySpnCurList);
             spnCur1.setAdapter(adapter);    // Update spnCur1's Adapter
             spnCur2.setAdapter(adapter);    // Update spnCur2's Adapter
             spnCur1.setSelection(oldSp1);   // Restore sp1 itemPos
@@ -113,12 +113,14 @@ import java.util.List;
                 if (inputStream != null) { // If stream is not empty
                     reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                    String line;
+                    String line, cr;
+                    cr = "\n";
                     while ((line = reader.readLine()) != null) {
                         // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                         // But it does make debugging a *lot* easier if you print out the completed
                         // buffer for debugging.
-                        buffer.append(line + "\n");
+                        line = line + cr;
+                        buffer.append(line);
                     }
 
                     if (buffer.length() == 0) {

@@ -12,16 +12,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 class SpinnerAdapter extends ArrayAdapter {
-    private int groupid;
-    private Activity context;
-    private ArrayList<ItemData> list;
-    private LayoutInflater inflater;
+    private final int groupid;
+    private final ArrayList<ItemData> list;
+    private final LayoutInflater inflater;
 
-    SpinnerAdapter(Activity context, int groupid, int id, ArrayList<ItemData> list){
-        super(context,id,list);
+    SpinnerAdapter(Activity context, ArrayList<ItemData> list){
+        super(context, R.id.spin_txt,list);
         this.list=list;
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.groupid=groupid;
+        this.groupid= R.layout.spinner_item_currencies;
     }
 
     public View getView(int position, View convertView, ViewGroup parent ){

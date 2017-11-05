@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         spnCurList = fillspnCurList();  //Create parametrical spinner table
         spnCur1=(Spinner)findViewById(R.id.spin_cur_1);
         spnCur2=(Spinner)findViewById(R.id.spin_cur_2);
-        SpinnerAdapter adapter=new SpinnerAdapter(this,R.layout.spinner_item_currencies,R.id.spin_txt,spnCurList);
+        SpinnerAdapter adapter=new SpinnerAdapter(this, spnCurList);
         spnCur1.setAdapter(adapter);
         spnCur2.setAdapter(adapter);
 
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         btnCalc.setOnClickListener(calcOnClickListener);    //κλήση δημιουργίας listener για το Button Calc
         btnClear.setOnClickListener(clearOnClickListener);  //κλήση δημιουργίας listener για το Button Clear
 
-        createMyArrayAdapter(this,R.layout.list_item_currencies,R.id.list_item_currencies_textview,masterData);
-        setMyListViewAdapter(R.id.listview_currencies);
+        createMyArrayAdapter(this, masterData);
+        setMyListViewAdapter();
 
         //Set focus on switch button
         //btnSwitch.setFocusableInTouchMode(true);
@@ -77,27 +77,26 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<ItemData> result =new ArrayList<>();
         XMLCurTable = (new LibCurrenciesXML(this)).getDetailXMLCurTable();   //Get full detail from XMLCurTable
-        int arrayLen = XMLCurTable.length;              //Calculate table size
-        for(int i=0;i<arrayLen ;i++) {
-            curImg = getResources().getIdentifier(XMLCurTable[i][1] , "drawable", getPackageName());   // Convert image name to images's ID
-            result.add(new ItemData(" - " + XMLCurTable[i][0], curImg));    // Create a new line for spinner
+        for(String[] rowXMLCurTable:XMLCurTable ){
+            curImg = getResources().getIdentifier(rowXMLCurTable[1], "drawable", getPackageName());   // Convert image name to images's ID
+            result.add(new ItemData(" - " + rowXMLCurTable[0], curImg));    // Create a new line for spinner
         }
         return result;
     }
 
-    public void createMyArrayAdapter(Activity myActivity, int myLayoutID, int myItemID, String[] newMasterData){
+    private void createMyArrayAdapter(Activity myActivity, String[] newMasterData){
 
-        currenciesListAdapter = new ArrayAdapter<String>(
+        currenciesListAdapter = new ArrayAdapter<>(
                 myActivity,
-                myLayoutID,
-                myItemID,
+                R.layout.list_item_currencies,
+                R.id.list_item_currencies_textview,
                 Arrays.asList(newMasterData));
     }
 
-    public void setMyListViewAdapter(int myListViewID){
+    private void setMyListViewAdapter(){
         ListView currenciesListView;
 
-        currenciesListView =  (ListView)findViewById(myListViewID);
+        currenciesListView =  (ListView)findViewById(R.id.listview_currencies);
         currenciesListView.setAdapter(currenciesListAdapter);
     }
 
@@ -107,21 +106,21 @@ public class MainActivity extends AppCompatActivity {
         masterData = Arrays.copyOf(newMasterData, newMasterData.length);
     }
 
-    private View.OnClickListener switchOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener switchOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             btnSwitchClicked();  //κλήση της btnClearClicked
         }
     };
 
-    private View.OnClickListener calcOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener calcOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             btnCalcClicked();  //κλήση της btnCalcClicked
         }
     };
 
-    private View.OnClickListener clearOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener clearOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             btnClearClicked();  //κλήση της btnClearClicked
@@ -174,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         edTxtCur2.setText("");
     }
 
-    public Double findCurrency(String curToSearch){
+    private Double findCurrency(String curToSearch){
         Double result = 0.00001;
 
         for(String rowMasterData: masterData){

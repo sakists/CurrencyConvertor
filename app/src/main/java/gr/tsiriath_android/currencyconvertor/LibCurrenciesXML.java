@@ -4,8 +4,8 @@ import android.content.Context;
 
 class LibCurrenciesXML {
 
-    private Context context;
-    private String [][] fullDetailArray;
+    private final Context context;
+    private final String [][] fullDetailArray;
 
     LibCurrenciesXML(Context myContext ){
         String[] XMLCurTableCopy,XMLCurTableLine;
@@ -26,10 +26,9 @@ class LibCurrenciesXML {
         Integer curImg;
 
         curImg=context.getResources().getIdentifier("_noflag" , "drawable", context.getPackageName());  //set initial value _noflag.png
-        int arrayLen = fullDetailArray.length;
-        for (int i=0;i<arrayLen;i++) {
-            if (searchCur.equals(fullDetailArray[i][0]))
-                return context.getResources().getIdentifier(fullDetailArray[i][1] , "drawable", context.getPackageName());
+        for(String[] rowFullDetailArray:fullDetailArray) {
+            if (searchCur.equals(rowFullDetailArray[0]))
+                return context.getResources().getIdentifier(rowFullDetailArray[1] , "drawable", context.getPackageName());
         }
         return curImg;
     }
@@ -37,10 +36,9 @@ class LibCurrenciesXML {
     public String getCurDescr(String searchCur){
         String detailDescr="";
 
-        int arrayLen = fullDetailArray.length;      // Find array length
-        for (int i=0;i<arrayLen;i++) {              // search array
-            if (searchCur.equals(fullDetailArray[i][0]))    // If found return text
-                return fullDetailArray[i][2];
+        for(String[] rowFullDetailArray:fullDetailArray){
+            if (searchCur.equals(rowFullDetailArray[0]))    // If found return text
+                return rowFullDetailArray[2];
         }
         return detailDescr;     // If NOT found return ""
     }
