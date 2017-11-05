@@ -30,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/init_messsage" />
+                android:text="@string/init_message" />
         </LinearLayout>
 
     <LinearLayout
@@ -80,14 +80,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.20"
-                android:onClick="calc"
                 android:text="@string/calc_txt" />
             <Button
                 android:id="@+id/btn_clear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.20"
-                android:onClick="clear"
                 android:text="@string/clear_txt" />
             <EditText
                 android:id="@+id/edt_cur_2"

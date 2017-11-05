@@ -1,7 +1,6 @@
 package gr.tsiriath_android.currencyconvertor;
 
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Created by tsiriath on 2/11/2017.

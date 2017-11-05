@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         //Set focus on switch button
         //btnSwitch.setFocusableInTouchMode(true);
         spnCur2.requestFocus();
+
     }
 
     private ArrayList<ItemData> fillspnCurList() {
@@ -208,13 +209,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.m23_fb_share_button) {
-            ShareDialog shareDialog = new ShareDialog(this);
+
             // Sharing the content to facebook
-            if (shareDialog.canShow(ShareLinkContent.class)) {
+            if (ShareDialog.canShow(ShareLinkContent.class)) {
                 Log.i("FB - Share content", "ShareDialog.canShow(ShareLinkContent.class)=TRUE");
                 ShareLinkContent content = new ShareLinkContent.Builder()
                         .setContentUrl(Uri.parse("https://github.com/sakists/CurrencyConvertor")).build();
-                shareDialog.show(this,content);  // Show facebook ShareDialog
+                ShareDialog.show(this,content);  // Show facebook ShareDialog
             }
             return true;
         }
