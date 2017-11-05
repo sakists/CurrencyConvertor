@@ -27,7 +27,7 @@
                 android:enabled="true"
                 app:showAsAction="ifRoom" />
             <item
-                android:id="@+id/m23_facebook_post"
+                android:id="@+id/m23_fb_share_button"
                 android:icon="@mipmap/facebook"
                 android:title="@string/facebook_post"
                 android:orderInCategory="101"

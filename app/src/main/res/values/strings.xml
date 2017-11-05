@@ -14,4 +14,6 @@
     <string name="refresh">Refresh</string>
     <string name="last_upd_txt">Last update:</string>
     <string name="upd_text">Update online</string>
+
+    <string name="facebook_app_id">541898549491120</string>
 </resources>

@@ -1,6 +1,7 @@
 package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -202,8 +207,15 @@ public class MainActivity extends AppCompatActivity {
             task.execute(this);
             return true;
         }
-        if (id == R.id.m23_facebook_post){
-
+        if (id == R.id.m23_fb_share_button) {
+            ShareDialog shareDialog = new ShareDialog(this);
+            // Sharing the content to facebook
+            if (ShareDialog.canShow(ShareLinkContent.class)) {
+                Log.i("FB - Share content", "ShareDialog.canShow(ShareLinkContent.class)=TRUE");
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("https://github.com/sakists/CurrencyConvertor")).build();
+                shareDialog.show(this,content);  // Show facebook ShareDialog
+            }
             return true;
         }
 
