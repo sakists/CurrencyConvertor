@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by tsiriath on 30/10/2017.
- */
-
 class SpinnerAdapter extends ArrayAdapter {
     private int groupid;
     private Activity context;

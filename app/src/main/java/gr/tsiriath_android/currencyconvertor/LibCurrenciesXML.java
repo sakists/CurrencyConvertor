@@ -2,10 +2,6 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.content.Context;
 
-/**
- * Created by tsiriath on 2/11/2017.
- */
-
 class LibCurrenciesXML {
 
     private Context context;
