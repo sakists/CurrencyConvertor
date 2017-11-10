@@ -76,13 +76,15 @@ import java.util.List;
     private ArrayList<ItemData> updSpnCurList(String[] myStrings) {
 
         String curTxt;
+        String curDescr;
         Integer curImg;
 
         ArrayList<ItemData> result =new ArrayList<>();
-        for(String rowStrings:myStrings){       //For each sting in mystrings
+         for(String rowStrings:myStrings){       //For each sting in mystrings
             curTxt =  rowStrings.substring(0,3);    //Get currency text
+            curDescr = new LibCurrenciesXML(myContext).getCurDescr(curTxt);    //Get currency description
             curImg =  (new LibCurrenciesXML(myContext)).findImgID(curTxt);  //find currency flag
-            result.add(new ItemData(" - " +curTxt, curImg));    // Create a new line for spinner
+            result.add(new ItemData(" - " +curTxt, " - " + curDescr, curImg));    // Create a new line for spinner
         }
        return result;
     }

@@ -34,7 +34,7 @@ class LibCurrenciesXML {
     }
 
     public String getCurDescr(String searchCur){
-        String detailDescr="";
+        String detailDescr="Descr. not found.!!!";
 
         for(String[] rowFullDetailArray:fullDetailArray){
             if (searchCur.equals(rowFullDetailArray[0]))    // If found return text

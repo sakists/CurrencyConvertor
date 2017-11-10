@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
         XMLCurTable = (new LibCurrenciesXML(this)).getDetailXMLCurTable();   //Get full detail from XMLCurTable
         for(String[] rowXMLCurTable:XMLCurTable ){
             curImg = getResources().getIdentifier(rowXMLCurTable[1], "drawable", getPackageName());   // Convert image name to images's ID
-            result.add(new ItemData(" - " + rowXMLCurTable[0], curImg));    // Create a new line for spinner
+            result.add(new ItemData(" - " + rowXMLCurTable[0]," - " + rowXMLCurTable[2], curImg));    // Create a new line for spinner
+
         }
         return result;
     }
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             conv1 = findCurrency(cur1);
             conv2 = findCurrency(cur2);
             result = (value*conv2)/conv1;
-            result = Double.valueOf(String.format(Locale.getDefault(),"%.2f",result));  //Reduce results to 2 decimal points
+            result = Double.valueOf(String.format(Locale.US,"%.2f",result));  //Reduce results to 2 decimal points
             Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
             resTxt = result.toString();
             edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
