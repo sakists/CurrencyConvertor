@@ -4,11 +4,11 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="left"> <!-- cell gravity on spinner dialog mode -->
+        android:gravity="start"> <!-- cell gravity on spinner dialog mode -->
 
         <ImageView
             android:id="@+id/spin_img"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:scaleType="fitEnd"

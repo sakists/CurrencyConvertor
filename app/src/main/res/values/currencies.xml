@@ -2,7 +2,7 @@
 <resources>
     <string-array name="XMLCurTable">
          <item>EUR,_eur,Euro</item>
-
+         <item>AUD,_aud,Australian dollar</item>
          <item>BGN,_bgn,Bulgarian lev</item>
          <item>BRL,_brl,Brazilian real</item>
          <item>CAD,_cad,Canadian dollar</item>

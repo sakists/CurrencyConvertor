@@ -45,12 +45,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@android:style/Widget.Holo.Light.Spinner"
-            android:layout_weight="0.30" />
+            android:layout_weight="0.31" />
         <Button
             android:id="@+id/btn_switch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.40"
+            android:layout_weight="0.38"
             android:text="@string/switch_txt" />
         <Spinner
             android:id="@+id/spin_cur_2"
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@android:style/Widget.Holo.Light.Spinner"
-            android:layout_weight="0.30" />
+            android:layout_weight="0.31" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,27 +72,27 @@
                 android:hint="@string/hint_cur_1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="0.30"
+                android:layout_weight="0.31"
                 android:digits="0123456789."
                 android:inputType="numberDecimal"/>
             <Button
                 android:id="@+id/btn_calc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_weight="0.19"
                 android:text="@string/calc_txt" />
             <Button
                 android:id="@+id/btn_clear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_weight="0.19"
                 android:text="@string/clear_txt" />
             <EditText
                 android:id="@+id/edt_cur_2"
                 android:hint="@string/hint_cur_2"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="0.30"
+                android:layout_weight="0.31"
                 android:digits="0123456789."
                 android:inputType="numberDecimal"/>
 

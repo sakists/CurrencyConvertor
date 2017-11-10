@@ -139,9 +139,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void btnCalcClicked() {    // Υλοποίηση της btnCalcClicked
-        Double value,conv1,conv2,result;
-        String cur1,cur2;
-        String resTxt;
+        Double value;
+        String cur1,cur2,resTxt;
         EditText edTxtCur1,edTxtCur2;
 
         edTxtCur1=(EditText) findViewById(R.id.edt_cur_1);
@@ -153,12 +152,7 @@ public class MainActivity extends AppCompatActivity {
             cur1 = textView1.getText().toString().substring(3);                             //Get string from TextView of 1st spinner
             TextView textView2 = spnCur2.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 2nd spinner object
             cur2 = textView2.getText().toString().substring(3);                             //Get string from TextView of 2nd spinner
-            conv1 = findCurrency(cur1);
-            conv2 = findCurrency(cur2);
-            result = (value*conv2)/conv1;
-            result = Double.valueOf(String.format(Locale.US,"%.2f",result));  //Reduce results to 2 decimal points
-            Log.i("mainAct-Calc",  Double.toString(value) + " , " + cur1 + " , " + cur2 + " , " + Double.toString(conv1) + " , " + Double.toString(conv2));
-            resTxt = result.toString();
+            resTxt = calcCurrency(cur1,cur2,value);
             edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
             edTxtCur2.setText(resTxt);
         }
@@ -183,6 +177,17 @@ public class MainActivity extends AppCompatActivity {
                 return Double.valueOf(rowMasterData.substring(6));
         }
         return result;
+    }
+
+    private String calcCurrency(String cur1, String cur2, Double intValue){
+        Double conv1,conv2,result;
+        Double calculation = 0.00000;
+
+        conv1 = findCurrency(cur1);
+        conv2 = findCurrency(cur2);
+        result = calculation + (intValue*conv2)/conv1;
+        result = Double.valueOf(String.format(Locale.US,"%.3f",result));
+        return result.toString();
     }
 
     @Override
