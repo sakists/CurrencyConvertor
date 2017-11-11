@@ -8,8 +8,6 @@ package gr.tsiriath_android.currencyconvertor;
     private final String descr;    //Final data cannot be overridden by subclasse
     private final Integer imgId;    //Final data cannot be overridden by subclasses
 
-
-
      ItemData(String text, String text2, Integer imageId){
         this.txt=text;
         this.descr=text2;

@@ -1,20 +1,24 @@
 package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -99,12 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         currenciesListView =  (ListView)findViewById(R.id.listview_currencies);
         currenciesListView.setAdapter(currenciesListAdapter);
-    }
-
-    static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
-
-        masterData = new String[newMasterData.length];         //Clear  data from MasterData
-        masterData = Arrays.copyOf(newMasterData, newMasterData.length);
+        currenciesListView.setOnItemClickListener(listItemOnClickListener);
     }
 
     private final View.OnClickListener switchOnClickListener = new View.OnClickListener() {
@@ -128,6 +127,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private final AdapterView.OnItemClickListener listItemOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?>  parent, View v, int position, long id) {
+            listItemClicked(position);  //κλήση της listItemClicked
+        }
+    };
+
+    private void listItemClicked(int position) {    // Υλοποίηση της listItemClicked
+        Context context = getApplicationContext();
+
+        String text = toastCalcCurrency(position);
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
     private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
 
@@ -156,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
             edTxtCur2=(EditText) findViewById(R.id.edt_cur_2);
             edTxtCur2.setText(resTxt);
         }
-
     }
 
     private void btnClearClicked() {    // Υλοποίηση της btnClearClicked
@@ -188,6 +201,28 @@ public class MainActivity extends AppCompatActivity {
         result = calculation + (intValue*conv2)/conv1;
         result = Double.valueOf(String.format(Locale.US,"%.3f",result));
         return result.toString();
+    }
+
+    private String toastCalcCurrency(int position){
+        String cur1,cur2;
+
+        EditText edTxtCur1=(EditText) findViewById(R.id.edt_cur_1);
+        if (!edTxtCur1.getText().toString().equals("")) {
+            Double value = Double.valueOf(edTxtCur1.getText().toString());
+            spnCur1 = (Spinner) findViewById(R.id.spin_cur_1);     //Get 1st spinner object
+            TextView textView1 = spnCur1.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 1st spinner object
+            cur1 = textView1.getText().toString().substring(3);                             //Get string from TextView of 1st spinner
+            cur2 = masterData[position].substring(0, 3);                                     //Get string from list Item
+
+            return (cur1 + " " + value.toString() + " => " + calcCurrency(cur1, cur2, value) + " " + cur2);
+        }
+        return "Nothing to calculate.!!!";
+    }
+    
+    static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
+
+        masterData = new String[newMasterData.length];         //Clear  data from MasterData
+        masterData = Arrays.copyOf(newMasterData, newMasterData.length);
     }
 
     @Override
