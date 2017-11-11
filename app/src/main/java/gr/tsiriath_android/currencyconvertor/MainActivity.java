@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spnCur1,spnCur2;
     private static  String[] masterData = {
             "EUR - 1.0000",
-            "AUD - 1.5000",
-            "BGN - 2.0000",
-            "DKK - 3.0000"};
+            "Internet Connection NOT available.",
+            "No history data on local Database.",
+            "Please select Options menu => Refresh."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +68,13 @@ public class MainActivity extends AppCompatActivity {
         createMyArrayAdapter(this, masterData);
         setMyListViewAdapter();
 
-        //Set focus on switch button
-        //btnSwitch.setFocusableInTouchMode(true);
-        spnCur2.requestFocus();
+        if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())){
+            showToast(getApplicationContext(),getString(R.string.Try_to_update),Toast.LENGTH_SHORT);
+            FetchCurrenciesTask task = new FetchCurrenciesTask();
+            task.execute(this);
+        }else {
+            showToast(getApplicationContext(),getString(R.string.No_connection),Toast.LENGTH_LONG);
+        }
 
     }
 
@@ -135,12 +139,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void listItemClicked(int position) {    // Υλοποίηση της listItemClicked
-        Context context = getApplicationContext();
 
+        Context context = getApplicationContext();
         String text = toastCalcCurrency(position);
         int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        showToast(context, text, duration);
     }
 
     private void btnSwitchClicked() {    // Υλοποίηση της btnSwitchClicked
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         conv1 = findCurrency(cur1);
         conv2 = findCurrency(cur2);
         result = calculation + (intValue*conv2)/conv1;
-        result = Double.valueOf(String.format(Locale.US,"%.3f",result));
+        result = Double.valueOf(String.format(Locale.US,"%.2f",result));
         return result.toString();
     }
 
@@ -212,14 +215,21 @@ public class MainActivity extends AppCompatActivity {
             spnCur1 = (Spinner) findViewById(R.id.spin_cur_1);     //Get 1st spinner object
             TextView textView1 = spnCur1.getSelectedView().findViewById(R.id.spin_txt);     //Get TextView from 1st spinner object
             cur1 = textView1.getText().toString().substring(3);                             //Get string from TextView of 1st spinner
-            cur2 = masterData[position].substring(0, 3);                                     //Get string from list Item
-
-            return (cur1 + " " + value.toString() + " => " + calcCurrency(cur1, cur2, value) + " " + cur2);
+            cur2 = masterData[position].substring(0, 3);                                    //Get 3char currency string from masterData
+            if (masterData[position].substring(4, 5).equals("-")) {                         //Check for - in the 4th position
+                return ( cur1 + " " + value.toString() + " => " + calcCurrency(cur1, cur2, value) + " " + cur2);
+            }
         }
         return "Nothing to calculate.!!!";
     }
-    
-    static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
+
+    private void showToast(Context context, String text,int duration){
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    public static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
 
         masterData = new String[newMasterData.length];         //Clear  data from MasterData
         masterData = Arrays.copyOf(newMasterData, newMasterData.length);

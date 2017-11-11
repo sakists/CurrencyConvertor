@@ -17,7 +17,7 @@ class SpinnerAdapter extends ArrayAdapter {
     private final LayoutInflater inflater;
 
     SpinnerAdapter(Activity context, ArrayList<ItemData> list){
-        super(context, R.id.spin_txt,list);
+        super(context, R.id.spin_img,list);
         this.list=list;
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.groupid= R.layout.spinner_item_currencies;

@@ -10,7 +10,7 @@
             android:id="@+id/spin_img"
             android:layout_marginStart="5dp"
             android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:scaleType="fitEnd"
             android:contentDescription="@string/spn_img_descr"
             android:gravity="center" />

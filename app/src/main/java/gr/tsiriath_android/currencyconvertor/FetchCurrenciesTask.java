@@ -2,6 +2,8 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -21,20 +23,19 @@ import java.util.List;
 
 
  class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
-    private Activity parentActivity;
-    private Context myContext;
+     private Activity parentActivity;
+     private Context myContext;
 
-
-    @Override
-    protected String[] doInBackground(Activity... params) {
+     @Override
+     protected String[] doInBackground(Activity... params) {
 
         parentActivity = params[0];
         myContext = parentActivity.getApplicationContext();
         return fetchCurrenciesData();
      }
 
-    @Override
-    protected void onPostExecute(String[] strings) {
+     @Override
+     protected void onPostExecute(String[] strings) {
         ArrayAdapter<String> currenciesListAdapter;
         ArrayList<ItemData> MySpnCurList;
         ListView currenciesListView;
@@ -44,6 +45,7 @@ import java.util.List;
             //Update welcome message. Its the array's last element
             newWelcomeMessage= parentActivity.findViewById(R.id.welcomeMessage);
             newWelcomeMessage.setText(strings[strings.length-1]);
+            String curBase = strings[strings.length-1].substring(0,3);
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
 
@@ -72,8 +74,7 @@ import java.util.List;
         super.onPostExecute(strings);
     }
 
-
-    private ArrayList<ItemData> updSpnCurList(String[] myStrings) {
+     private ArrayList<ItemData> updSpnCurList(String[] myStrings) {
 
         String curTxt;
         String curDescr;
@@ -89,7 +90,7 @@ import java.util.List;
        return result;
     }
 
-        private String[] fetchCurrenciesData() {
+     private String[] fetchCurrenciesData() {
 
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
@@ -160,5 +161,12 @@ import java.util.List;
             //return tmp;
             return null;
         }
-    }
+
+     public static boolean isNetworkAvailable(Context context) {
+         ConnectivityManager connectivityManager
+                 = (ConnectivityManager)  context.getSystemService(Context.CONNECTIVITY_SERVICE);
+         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+     }
+ }
 

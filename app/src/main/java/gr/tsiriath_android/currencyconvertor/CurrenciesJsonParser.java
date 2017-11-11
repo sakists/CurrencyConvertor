@@ -21,7 +21,7 @@ class CurrenciesJsonParser {
 
             JSONObject currenciesList = jsonObject.getJSONObject("rates");
             Log.i("JSONParser- count",  Integer.toString(currenciesList.length()));
-            resline = "EUR - 1.000";
+            resline = curBase + " - 1.000";
             results.add(resline);
             resline = currenciesList.toString().replace("\"","");   //convert to string and remove char \
             resline = resline.replace(":"," - ");   //replace ":" with " - "
@@ -29,7 +29,7 @@ class CurrenciesJsonParser {
             resline = resline.replace("}","");      //remove char }
             String[] CurArray = resline.split(","); // split string to array
             Collections.addAll(results, CurArray);
-            resline = "Base currency is in " + curBase + ". Last update: " + curDate;
+            resline = curBase + " is the base currency." +  " Last update: " + curDate;
             results.add(resline);
             Log.i("JSONParser - Last line", resline);
         }catch(JSONException e){
