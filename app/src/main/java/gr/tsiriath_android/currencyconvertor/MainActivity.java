@@ -2,8 +2,11 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +32,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences mySharedPreferences;
+    private Context myContext;
     private ArrayAdapter<String> currenciesListAdapter;
     private Spinner spnCur1,spnCur2;
     private static  String[] masterData = {
@@ -67,14 +72,24 @@ public class MainActivity extends AppCompatActivity {
         createMyArrayAdapter(this, masterData);
         setMyListViewAdapter();
 
-        if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())){
-            showToast(getApplicationContext(),getString(R.string.Try_to_update),Toast.LENGTH_SHORT);
-            FetchCurrenciesTask task = new FetchCurrenciesTask();
-            task.execute(this);
-        }else {
-            showToast(getApplicationContext(),getString(R.string.No_connection),Toast.LENGTH_LONG);
-        }
 
+        myContext = getApplicationContext();
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),true);
+        //showToast(myContext,Boolean.toString(updFlag),Toast.LENGTH_LONG);
+
+        if (updFlag) {  // Check if update flag is TRUE
+            // If network is NOT available show message and connect
+            if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
+                showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
+                FetchCurrenciesTask task = new FetchCurrenciesTask();
+                task.execute(this);
+            }else { // If network is NOT available show message
+                showToast(getApplicationContext(),getString(R.string.No_connection),Toast.LENGTH_LONG);
+            }
+        }else{
+            showToast(myContext,getString(R.string.No_Auto_update),Toast.LENGTH_LONG);
+        }
     }
 
     private ArrayList<ItemData> fillspnCurList() {
@@ -251,6 +266,12 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+        if (id == R.id.m21_settings) {
+            Intent intentSettings = new Intent(this, SettingsActivity.class);   // Create settings intent
+            startActivity(intentSettings);                                      // Start Settings Activity
+            return true;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
             FetchCurrenciesTask task = new FetchCurrenciesTask();

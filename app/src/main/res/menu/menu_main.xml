@@ -23,21 +23,21 @@
                 android:id="@+id/m22_refresh"
                 android:icon="@mipmap/refresh"
                 android:title="@string/refresh"
-                android:orderInCategory="100"
+                android:orderInCategory="101"
                 android:enabled="true"
                 app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/m23_fb_share_button"
                 android:icon="@mipmap/facebook"
                 android:title="@string/facebook_post"
-                android:orderInCategory="101"
+                android:orderInCategory="102"
                 android:enabled="true"
                 app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/m24_about"
                 android:icon="@mipmap/about"
                 android:title="@string/about"
-                android:orderInCategory="102"
+                android:orderInCategory="103"
                 android:enabled="true"
                 app:showAsAction="ifRoom" />
         </menu>
