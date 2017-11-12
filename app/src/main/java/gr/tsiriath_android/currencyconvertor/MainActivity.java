@@ -23,8 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.Locale;
 
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         if (updFlag) {  // Check if update flag is TRUE
             // If network is NOT available show message and connect
             if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
-                //showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
+                showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
                 FetchCurrenciesTask task = new FetchCurrenciesTask();
                 task.execute(this);
             }else { // If network is NOT available show message
@@ -214,9 +217,11 @@ public class MainActivity extends AppCompatActivity {
 
         conv1 = findCurrency(cur1);
         conv2 = findCurrency(cur2);
-        result = calculation + (intValue*conv2)/conv1;
-        result = Double.valueOf(String.format(Locale.US,"%.2f",result));
-        return result.toString();
+        result = calculation + (intValue*conv2)/conv1;  //calculate result
+
+        NumberFormat formatter = NumberFormat.getInstance(Locale.US);   //Get US number formatter (thousands separator)
+        formatter.setMaximumFractionDigits(2);                          //Set 2 decimal digits
+        return  formatter.format(result);                               //Apply format
     }
 
     private String toastCalcCurrency(int position){
@@ -269,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         if (id == R.id.m21_settings) {
             Intent intentSettings = new Intent(this, SettingsActivity.class);   // Create settings intent
             startActivity(intentSettings);                                      // Start Settings Activity
@@ -278,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
             FetchCurrenciesTask task = new FetchCurrenciesTask();
+            pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
             task.execute(this);
             return true;
         }

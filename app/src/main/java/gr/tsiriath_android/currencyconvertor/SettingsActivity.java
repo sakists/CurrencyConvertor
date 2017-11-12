@@ -14,16 +14,15 @@ public class SettingsActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
 
-        bindPreferencesSummaryToValue(findPreference(getString(R.string.pref_autoUpdate_key)));
+       // bindPreferencesSummaryToValue(findPreference(getString(R.string.pref_autoUpdate_key)));
         bindPreferencesSummaryToValue(findPreference(getString(R.string.pref_selectBase_key)));
     }
 
     private void bindPreferencesSummaryToValue(Preference preference){
         preference.setOnPreferenceChangeListener(this);
 
-//        onPreferenceChange(preference, PreferenceManager
-//                .getDefaultSharedPreferences(preference.getContext())
-//                        .getString(preference.getKey(),""));
+        onPreferenceChange(preference, PreferenceManager
+                .getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(),""));
     }
 
     @Override

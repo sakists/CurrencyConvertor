@@ -99,17 +99,15 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
 
      private String[] fetchCurrenciesData() {
 
-            // These two need to be declared outside the try/catch
-            // so that they can be closed in the finally block.
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
+        // These two need to be declared outside the try/catch
+        // so that they can be closed in the finally block.
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
 
-            // Will contain the raw JSON response as a string.
-            String currenciesJsonStr;
+        // Will contain the raw JSON response as a string.
+        String currenciesJsonStr;
 
          String baseCur = MainActivity.pref_baseCur();
-        // Toast toast = Toast.makeText(getApplicationContext(),"READ current CUR: " + baseCur,Toast.LENGTH_LONG);
-        // toast.show();
             try {
                 // Construct the URL for the api.fixer.io query
                 // https://api.fixer.io/latest
