@@ -21,10 +21,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Context myContext;
     private ArrayAdapter<String> currenciesListAdapter;
     private Spinner spnCur1,spnCur2;
+    private static String pref_baseCur;
     private static  String[] masterData = {
             "EUR - 1.0000",
             "Internet Connection NOT available.",
@@ -72,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
         createMyArrayAdapter(this, masterData);
         setMyListViewAdapter();
 
-
         myContext = getApplicationContext();
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
-        boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),true);
-        //showToast(myContext,Boolean.toString(updFlag),Toast.LENGTH_LONG);
+        boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),
+                                                        Boolean.valueOf(getString(R.string.pref_autoUpdate_def)));
+        pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
 
         if (updFlag) {  // Check if update flag is TRUE
             // If network is NOT available show message and connect
             if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
-                showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
+                //showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
                 FetchCurrenciesTask task = new FetchCurrenciesTask();
                 task.execute(this);
             }else { // If network is NOT available show message
@@ -247,6 +246,10 @@ public class MainActivity extends AppCompatActivity {
 
         masterData = new String[newMasterData.length];         //Clear  data from MasterData
         masterData = Arrays.copyOf(newMasterData, newMasterData.length);
+    }
+
+    public static String pref_baseCur(){
+        return  pref_baseCur;
     }
 
     @Override

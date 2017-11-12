@@ -4,15 +4,15 @@
     <CheckBoxPreference
         android:title="@string/pref_autoUpdate_label"
         android:key="@string/pref_autoUpdate_key"
-        android:defaultValue="true">
-    </CheckBoxPreference>
+        android:summary="@string/pref_autoUpdate_sum"
+        android:defaultValue="@string/pref_autoUpdate_def"/>
 
     <ListPreference
         android:title="@string/pref_selectBase_label"
         android:key="@string/pref_selectBase_key"
-        android:defaultValue="@string/pref_selectBase_default"
-        android:entries="@array/XMLCurTableXXX"
-        android:entryValues="@array/XMLCurTableDescr">
-    </ListPreference>
+        android:summary="@string/pref_selectBase_sum"
+        android:defaultValue="@string/pref_selectBase_def"
+        android:entries="@array/XMLCurTableDescr"
+        android:entryValues="@array/XMLCurTableXXX"/>
 
 </PreferenceScreen>

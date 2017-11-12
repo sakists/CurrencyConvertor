@@ -2,14 +2,18 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.preference.ListPreference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +25,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.app.PendingIntent.getActivity;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
- class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
+
+class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
      private Activity parentActivity;
      private Context myContext;
 
@@ -100,10 +107,13 @@ import java.util.List;
             // Will contain the raw JSON response as a string.
             String currenciesJsonStr;
 
+         String baseCur = MainActivity.pref_baseCur();
+        // Toast toast = Toast.makeText(getApplicationContext(),"READ current CUR: " + baseCur,Toast.LENGTH_LONG);
+        // toast.show();
             try {
                 // Construct the URL for the api.fixer.io query
                 // https://api.fixer.io/latest
-                URL url = new URL("https://api.fixer.io/latest");
+                URL url = new URL("https://api.fixer.io/latest?base=" + baseCur);
 
                 // Create the request to api.fixer.io, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
