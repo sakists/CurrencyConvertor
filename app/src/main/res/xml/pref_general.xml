@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:title="@string/pref_autoUpdate_label"
-        android:key="@string/pref_autoUpdate_key"
-        android:summary="@string/pref_autoUpdate_sum"
-        android:defaultValue="@string/pref_autoUpdate_def"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/app_settings">
 
-    <ListPreference
-        android:title="@string/pref_selectBase_label"
-        android:key="@string/pref_selectBase_key"
-        android:summary="@string/pref_selectBase_sum"
-        android:defaultValue="@string/pref_selectBase_def"
-        android:entries="@array/XMLCurTableDescr"
-        android:entryValues="@array/XMLCurTableXXX"/>
+    <PreferenceCategory
+        android:key="pref_basic_settings"
+        android:title="@string/pref_basic_group" >
+        <CheckBoxPreference
+            android:title="@string/pref_autoUpdate_label"
+            android:key="@string/pref_autoUpdate_key"
+            android:summary="@string/pref_autoUpdate_sum"
+            android:defaultValue="@string/pref_autoUpdate_def"/>
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="pref_advance_settings"
+        android:title="@string/pref_advance_group" >
+        <ListPreference
+            android:title="@string/pref_selectBase_label"
+            android:key="@string/pref_selectBase_key"
+            android:summary="@string/pref_selectBase_sum"
+            android:defaultValue="@string/pref_selectBase_def"
+            android:entries="@array/XMLCurTableDescr"
+            android:entryValues="@array/XMLCurTableXXX"/>
+        <CheckBoxPreference
+            android:title="@string/pref_BaseCurAutoUpdate_label"
+            android:key="@string/pref_BaseCurAutoUpdate_key"
+            android:summary="@string/pref_BaseCurAutoUpdate_sum"
+            android:defaultValue="@string/pref_BaseCurAutoUpdate_def"/>
+    </PreferenceCategory>
 </PreferenceScreen>

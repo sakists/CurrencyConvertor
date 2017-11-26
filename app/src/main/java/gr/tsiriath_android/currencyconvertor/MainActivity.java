@@ -27,7 +27,6 @@ import com.facebook.share.widget.ShareDialog;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Formatter;
 import java.util.Locale;
 
 
@@ -76,21 +75,32 @@ public class MainActivity extends AppCompatActivity {
 
         myContext = getApplicationContext();
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
-        boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),
-                                                        Boolean.valueOf(getString(R.string.pref_autoUpdate_def)));
-        pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
+        boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),Boolean.valueOf(getString(R.string.pref_autoUpdate_def)));
 
         if (updFlag) {  // Check if update flag is TRUE
-            // If network is NOT available show message and connect
+            // If network IS available show message and connect
             if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
-                showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
-                FetchCurrenciesTask task = new FetchCurrenciesTask();
-                task.execute(this);
-            }else { // If network is NOT available show message
+                refreshData();
+            }else { // If network IS NOT available show message
                 showToast(getApplicationContext(),getString(R.string.No_connection),Toast.LENGTH_LONG);
             }
         }else{
             showToast(myContext,getString(R.string.No_Auto_update),Toast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean BCupdFlag = mySharedPreferences.getBoolean(getString(R.string.pref_BaseCurAutoUpdate_key),Boolean.valueOf(getString(R.string.pref_BaseCurAutoUpdate_key)));
+        if (BCupdFlag) {    // Check if auto update on change base currency is true
+            // If network IS available show message and connect
+            if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
+                refreshData();
+            } else { // If network IS NOT available show message
+                showToast(getApplicationContext(), getString(R.string.No_connection), Toast.LENGTH_LONG);
+            }
         }
     }
 
@@ -241,10 +251,17 @@ public class MainActivity extends AppCompatActivity {
         return "Nothing to calculate.!!!";
     }
 
-    private void showToast(Context context, String text,int duration){
+    public static void showToast(Context context, String text,int duration){
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public void refreshData(){
+        showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
+        pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
+        FetchCurrenciesTask task = new FetchCurrenciesTask();
+        task.execute(this);
     }
 
     public static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
@@ -281,9 +298,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
-            FetchCurrenciesTask task = new FetchCurrenciesTask();
-            pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
-            task.execute(this);
+            refreshData();
             return true;
         }
         if (id == R.id.m23_fb_share_button) {
