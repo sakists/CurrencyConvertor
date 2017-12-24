@@ -1,11 +1,16 @@
 package gr.tsiriath_android.currencyconvertor;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 class CurrenciesJsonParser {
 
@@ -32,7 +37,18 @@ class CurrenciesJsonParser {
             Collections.addAll(results, CurArray);
             resline = curBase + " is the base currency." +  " Last update: " + curDate;
             results.add(resline);
-            Log.i("JSONParser - Last line", resline);
+            Log.i("JSONParser- Status line", resline);
+
+            if (sourceFlag=="URL"){ // If data comes from URL save to DB else ignore
+                Context context = getApplicationContext();
+                RatesDbHelper  db = new RatesDbHelper(context);
+                int res = db.deleteData(curDate);
+                Log.i("JSONParser- Del_DB", String.valueOf(res) + " record deleted.");
+                if (db.insertData(curDate,curBase,jsonString)){
+                    Log.i("JSONParser- Ins_DB", curBase + " , " + curDate);
+                }
+            }
+
         }catch(JSONException e){
             Log.e("CurrenciesJsonParser",e.getMessage());
         }

@@ -37,11 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> currenciesListAdapter;
     private Spinner spnCur1,spnCur2;
     private static String pref_baseCur;
-    private static  String[] masterData = {
-            "EUR - 1.0000",
-            "Internet Connection NOT available.",
-            "No history data on local Database.",
-            "Please select Options menu => Refresh."};
+    private static String[] masterData = {
+            "EUR - 1.0000"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RatesDbHelper db = new RatesDbHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,16 +74,22 @@ public class MainActivity extends AppCompatActivity {
         myContext = getApplicationContext();
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
         boolean updFlag = mySharedPreferences.getBoolean(getString(R.string.pref_autoUpdate_key),Boolean.valueOf(getString(R.string.pref_autoUpdate_def)));
+        int countRec = db.numberOfRows();
 
         if (updFlag) {  // Check if update flag is TRUE
             // If network IS available show message and connect
             if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
                 refreshData();
             }else { // If network IS NOT available show message
-                showToast(getApplicationContext(),getString(R.string.No_connection),Toast.LENGTH_LONG);
+                String NoConnectionTXT = getString(R.string.No_connection);
+                showToast(getApplicationContext(),NoConnectionTXT,Toast.LENGTH_LONG);
+                changeWelcomeMessage(NoConnectionTXT,countRec);
+                //readDbData();
             }
         }else{
-            showToast(myContext,getString(R.string.No_Auto_update),Toast.LENGTH_LONG);
+            String NoAutoUpdTXT = getString(R.string.No_Auto_update);
+            showToast(myContext,NoAutoUpdTXT,Toast.LENGTH_LONG);
+            changeWelcomeMessage(NoAutoUpdTXT + "\nInternet Connection has not been checked.", countRec);
         }
     }
 
@@ -257,11 +261,27 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    public  void changeWelcomeMessage(String extraText, int countRec){
+
+        TextView newWelcomeMessage;
+        //Update welcome message.
+        newWelcomeMessage= (TextView) findViewById(R.id.welcomeMessage);
+        if (countRec==0){
+            newWelcomeMessage.setText(extraText + "\n No records found on local DB.");
+        }else{
+            newWelcomeMessage.setText(extraText + "\n" + countRec + " records found on local DB.");
+        }
+    }
+
     public void refreshData(){
         showToast(myContext, getString(R.string.Try_to_update), Toast.LENGTH_LONG);
         pref_baseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
         FetchCurrenciesTask task = new FetchCurrenciesTask();
         task.execute(this);
+    }
+
+    public void readDbData(){
+
     }
 
     public static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData

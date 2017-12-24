@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 
 public final class RatesContract {
 
-    public  class RatesEntry implements BaseColumns {
+    public static class RatesEntry implements BaseColumns {
 
         public static final String TABLE_NAME = "rates";
         public static final String COL_DATE = "datetime";
