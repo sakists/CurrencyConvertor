@@ -2,18 +2,14 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.preference.ListPreference;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,9 +20,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.app.PendingIntent.getActivity;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
@@ -52,7 +45,7 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             //Update welcome message. Its the array's last element
             newWelcomeMessage= parentActivity.findViewById(R.id.welcomeMessage);
             newWelcomeMessage.setText(strings[strings.length-1]);
-            String curBase = strings[strings.length-1].substring(0,3);
+            //String curBase = strings[strings.length-1].substring(0,3);
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange (strings,0,strings.length-1);
 
@@ -138,9 +131,10 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
                         // Stream was empty.  No point in parsing.
                         return null;
                     }else {
+                        String sourceFlag = "URL";
                         currenciesJsonStr = buffer.toString();
                         Log.i("FetchCurrenciesTask", currenciesJsonStr);
-                        List<String> currenciesList = CurrenciesJsonParser.getCurrenciesFromJson(currenciesJsonStr);
+                        List<String> currenciesList = CurrenciesJsonParser.getCurrenciesFromJson(currenciesJsonStr, sourceFlag);
                         int strSize = currenciesList.size();    //Get size of list
                         String[] tmp = new String[strSize];     //create string array with that size
                         return currenciesList.toArray(tmp);

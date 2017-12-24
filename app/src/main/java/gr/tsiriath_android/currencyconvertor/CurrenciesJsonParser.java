@@ -9,7 +9,7 @@ import java.util.List;
 
 class CurrenciesJsonParser {
 
-    static List<String> getCurrenciesFromJson(String jsonString) {
+    static List<String> getCurrenciesFromJson(String jsonString, String sourceFlag) {
 
         List<String> results = new ArrayList<>();
         String resline;
@@ -20,7 +20,8 @@ class CurrenciesJsonParser {
             String curDate = jsonObject.getString("date");
 
             JSONObject currenciesList = jsonObject.getJSONObject("rates");
-            Log.i("JSONParser- count",  Integer.toString(currenciesList.length()));
+            Log.i("JSONParser- count",  sourceFlag + " " + Integer.toString(currenciesList.length()));
+            Log.i("JSONParser- rates",  currenciesList.toString());
             resline = curBase + " - 1.000";
             results.add(resline);
             resline = currenciesList.toString().replace("\"","");   //convert to string and remove char \
