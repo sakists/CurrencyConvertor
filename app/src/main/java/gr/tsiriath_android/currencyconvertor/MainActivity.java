@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static String pref_baseCur;
     private static String[] masterData = {
             "EUR - 1.0000"};
+    RatesDbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RatesDbHelper db = new RatesDbHelper(this);
+        db = new RatesDbHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -331,6 +332,9 @@ public class MainActivity extends AppCompatActivity {
                 ShareDialog.show(this,content);  // Show facebook ShareDialog
             }
             return true;
+        }
+        if (id == R.id.m24_delAllDbData) {
+            db.deleteAllData();
         }
 
         return super.onOptionsItemSelected(item);

@@ -34,9 +34,9 @@
                 android:enabled="true"
                 app:showAsAction="ifRoom" />
             <item
-                android:id="@+id/m24_about"
+                android:id="@+id/m24_delAllDbData"
                 android:icon="@mipmap/about"
-                android:title="@string/about"
+                android:title="@string/delAllDbData"
                 android:orderInCategory="103"
                 android:enabled="true"
                 app:showAsAction="ifRoom" />

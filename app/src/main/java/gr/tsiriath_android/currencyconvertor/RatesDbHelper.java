@@ -63,6 +63,11 @@ public class RatesDbHelper extends SQLiteOpenHelper {
         return db.delete(RatesContract.RatesEntry.TABLE_NAME,"datetime=?",new String[] { recDateID});
     }
 
+    public int deleteAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(RatesContract.RatesEntry.TABLE_NAME, null, null);
+    }
+
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
         return (int) DatabaseUtils.queryNumEntries(db, RatesContract.RatesEntry.TABLE_NAME);

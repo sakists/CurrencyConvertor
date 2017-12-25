@@ -3,7 +3,7 @@
     <string name="app_settings">Application Settings</string>
     <string name="options">&#8230;</string>
     <string name="facebook_post">Facebook</string>
-    <string name="about">About</string>
+    <string name="delAllDbData">DELETE Local DB Data.</string>
     <string name="init_message">EUR is the base currency. Application NOT UPDATED.</string>
     <string name="switch_txt">&lt;- Switch -&gt;</string>
     <string name="clear_txt">Clear</string>
