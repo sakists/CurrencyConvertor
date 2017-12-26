@@ -2,11 +2,14 @@ package gr.tsiriath_android.currencyconvertor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +30,7 @@ import com.facebook.share.widget.ShareDialog;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 String NoConnectionTXT = getString(R.string.No_connection);
                 showToast(getApplicationContext(),NoConnectionTXT,Toast.LENGTH_LONG);
                 changeWelcomeMessage(NoConnectionTXT,countRec);
-                //readDbData();
+                DisplayDataFromDB.renderMainScreen(readDbData(),this);
             }
         }else{
             String NoAutoUpdTXT = getString(R.string.No_Auto_update);
@@ -281,8 +285,13 @@ public class MainActivity extends AppCompatActivity {
         task.execute(this);
     }
 
-    public void readDbData(){
-
+    public String[] readDbData(){
+        Cursor cur = db.getLastData();
+        cur.moveToNext();
+        List<String> currenciesList = CurrenciesJsonParser.getCurrenciesFromJson(cur.getString(2), "DB");
+        int strSize = currenciesList.size();    //Get size of list
+        String[] tmp = new String[strSize];     //create string array with that size
+        return currenciesList.toArray(tmp);
     }
 
     public static void newMasterData(String[] newMasterData){  //Insert new data from listMasterData
@@ -334,7 +343,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.m24_delAllDbData) {
-            db.deleteAllData();
+            new AlertDialog.Builder(this)       // Show confirmation.DialogBOX
+                    .setTitle("Confirmation Message")
+                    .setMessage("All local database records will be deleted. Are you sure.?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Toast.makeText(MainActivity.this, "Records have been deleted.", Toast.LENGTH_SHORT).show();
+                            db.deleteAllData();
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
         }
 
         return super.onOptionsItemSelected(item);

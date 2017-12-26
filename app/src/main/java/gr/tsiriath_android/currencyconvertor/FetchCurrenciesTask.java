@@ -23,8 +23,8 @@ import java.util.List;
 
 
 class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
-     private Activity parentActivity;
-     private Context myContext;
+    private Activity parentActivity;
+    private Context myContext;
 
      @Override
      protected String[] doInBackground(Activity... params) {
@@ -60,7 +60,7 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
             currenciesListView.setAdapter(currenciesListAdapter);
 
             //Update spinners with new data from data form JSON string
-            MySpnCurList = updSpnCurList(strings);  //Create parametrical spinner table
+            MySpnCurList = updSpnCurList(strings,myContext);  //Create parametrical spinner table
             Spinner spnCur1=parentActivity.findViewById(R.id.spin_cur_1);   //Link spnCur1 variable with spin_cur_1
             Spinner spnCur2=parentActivity.findViewById(R.id.spin_cur_2);   //Link spnCur1 variable with spin_cur_2
             Integer oldSp1 =spnCur1.getSelectedItemPosition();      // Save old spnCur1 selected item position
@@ -74,7 +74,7 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
         super.onPostExecute(strings);
     }
 
-     private ArrayList<ItemData> updSpnCurList(String[] myStrings) {
+     static ArrayList<ItemData> updSpnCurList(String[] myStrings,Context tmpContext) {
 
         String curTxt;
         String curDescr;
@@ -83,8 +83,8 @@ class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
         ArrayList<ItemData> result =new ArrayList<>();
          for(String rowStrings:myStrings){       //For each sting in mystrings
             curTxt =  rowStrings.substring(0,3);    //Get currency text
-            curDescr = (new LibCurrenciesXML(myContext)).getCurDescr(curTxt);    //Get currency description
-            curImg =  (new LibCurrenciesXML(myContext)).findImgID(curTxt);  //find currency flag
+            curDescr = (new LibCurrenciesXML(tmpContext)).getCurDescr(curTxt);    //Get currency description
+            curImg =  (new LibCurrenciesXML(tmpContext)).findImgID(curTxt);  //find currency flag
             result.add(new ItemData(" - " +curTxt, " - " + curDescr, curImg));    // Create a new line for spinner
         }
        return result;

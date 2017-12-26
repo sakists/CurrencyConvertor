@@ -35,7 +35,7 @@
                 app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/m24_delAllDbData"
-                android:icon="@mipmap/about"
+                android:icon="@mipmap/delete"
                 android:title="@string/delAllDbData"
                 android:orderInCategory="103"
                 android:enabled="true"
