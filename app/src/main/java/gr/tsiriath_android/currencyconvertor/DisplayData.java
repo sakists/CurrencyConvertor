@@ -14,9 +14,9 @@ import java.util.Arrays;
  * Created by tsiriath on 26/12/2017.
  */
 
-public class DisplayDataFromDB {
+public class DisplayData {
 
-    static void renderMainScreen(String[] strings, Activity parentActivity) {
+    static void renderMainScreen(String[] strings, Activity parentActivity, String sourceFlag) {
         ArrayAdapter<String> currenciesListAdapter;
         ArrayList<ItemData> MySpnCurList;
         ListView currenciesListView;
@@ -26,8 +26,15 @@ public class DisplayDataFromDB {
         if (strings != null) {
             //Update welcome message. Its the array's last element
             newWelcomeMessage = parentActivity.findViewById(R.id.welcomeMessage);
-            String newMessage = "OFFLINE MODE. Data source is local DB. \n" + strings[strings.length - 1];
+            String newMessage = "";
+            // If Not Internet connection Change welcome Message to OFFLINE MODE
+            if (sourceFlag == "DB") {
+                newMessage = parentActivity.getString(R.string.Offline_Mode) + "\n" + strings[strings.length - 1];
+            } else {
+                newMessage = strings[strings.length-1];
+            }
             newWelcomeMessage.setText(newMessage);
+
             //Update listview with new values. Welcome message not included
             strings = Arrays.copyOfRange(strings, 0, strings.length - 1);
 
@@ -43,7 +50,7 @@ public class DisplayDataFromDB {
 
             //Update spinners with new data from data form JSON string
 
-            MySpnCurList = FetchCurrenciesTask.updSpnCurList(strings, myContext);  //Create parametrical spinner table
+            MySpnCurList = updSpnCurList(strings, myContext);  //Create parametrical spinner table
             Spinner spnCur1 = parentActivity.findViewById(R.id.spin_cur_1);   //Link spnCur1 variable with spin_cur_1
             Spinner spnCur2 = parentActivity.findViewById(R.id.spin_cur_2);   //Link spnCur1 variable with spin_cur_2
             Integer oldSp1 = spnCur1.getSelectedItemPosition();      // Save old spnCur1 selected item position
@@ -54,6 +61,23 @@ public class DisplayDataFromDB {
             spnCur1.setSelection(oldSp1);   // Restore sp1 itemPos
             spnCur2.setSelection(oldSp2);   // Restore sp2 itemPos
         }
+    }
+
+
+    static ArrayList<ItemData> updSpnCurList(String[] myStrings,Context tmpContext) {
+
+        String curTxt;
+        String curDescr;
+        Integer curImg;
+
+        ArrayList<ItemData> result =new ArrayList<>();
+        for(String rowStrings:myStrings){       //For each sting in mystrings
+            curTxt =  rowStrings.substring(0,3);    //Get currency text
+            curDescr = (new LibCurrenciesXML(tmpContext)).getCurDescr(curTxt);    //Get currency description
+            curImg =  (new LibCurrenciesXML(tmpContext)).findImgID(curTxt);  //find currency flag
+            result.add(new ItemData(" - " +curTxt, " - " + curDescr, curImg));    // Create a new line for spinner
+        }
+        return result;
     }
 
 }

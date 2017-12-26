@@ -89,12 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 String NoConnectionTXT = getString(R.string.No_connection);
                 showToast(getApplicationContext(),NoConnectionTXT,Toast.LENGTH_LONG);
                 changeWelcomeMessage(NoConnectionTXT,countRec);
-                DisplayDataFromDB.renderMainScreen(readDbData(),this);
+                if (countRec>0) {   // Fetch data only if data exists.
+                    DisplayData.renderMainScreen(readDbData(), this, "DB"); // Read data from DB and render main screen
+                }
             }
         }else{
             String NoAutoUpdTXT = getString(R.string.No_Auto_update);
             showToast(myContext,NoAutoUpdTXT,Toast.LENGTH_LONG);
-            changeWelcomeMessage(NoAutoUpdTXT + "\nInternet Connection has not been checked.", countRec);
+            changeWelcomeMessage(NoAutoUpdTXT + "\n" + getString(R.string.InternetCon_not_checked), countRec);
         }
     }
 
@@ -287,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] readDbData(){
         Cursor cur = db.getLastData();
-        cur.moveToNext();
+        cur.moveToNext();       //Read 1st record
         List<String> currenciesList = CurrenciesJsonParser.getCurrenciesFromJson(cur.getString(2), "DB");
         int strSize = currenciesList.size();    //Get size of list
         String[] tmp = new String[strSize];     //create string array with that size

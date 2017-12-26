@@ -6,10 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,77 +13,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 class FetchCurrenciesTask extends AsyncTask<Activity, Void, String[]> {
     private Activity parentActivity;
-    private Context myContext;
 
      @Override
      protected String[] doInBackground(Activity... params) {
 
         parentActivity = params[0];
-        myContext = parentActivity.getApplicationContext();
         return fetchCurrenciesData();
      }
 
-     @Override
-     protected void onPostExecute(String[] strings) {
-        ArrayAdapter<String> currenciesListAdapter;
-        ArrayList<ItemData> MySpnCurList;
-        ListView currenciesListView;
-        TextView newWelcomeMessage;
-
-        if (strings!= null){
-            //Update welcome message. Its the array's last element
-            newWelcomeMessage= parentActivity.findViewById(R.id.welcomeMessage);
-            newWelcomeMessage.setText(strings[strings.length-1]);
-            //String curBase = strings[strings.length-1].substring(0,3);
-            //Update listview with new values. Welcome message not included
-            strings = Arrays.copyOfRange (strings,0,strings.length-1);
-
-            MainActivity.newMasterData(strings); //Update MasterData in MainActivity with new values
-
-            currenciesListAdapter = new ArrayAdapter<>(
-                    parentActivity,
-                    R.layout.list_item_currencies,
-                    R.id.list_item_currencies_textview,
-                    Arrays.asList(strings));
-            currenciesListView =  parentActivity.findViewById(R.id.listview_currencies);
-            currenciesListView.setAdapter(currenciesListAdapter);
-
-            //Update spinners with new data from data form JSON string
-            MySpnCurList = updSpnCurList(strings,myContext);  //Create parametrical spinner table
-            Spinner spnCur1=parentActivity.findViewById(R.id.spin_cur_1);   //Link spnCur1 variable with spin_cur_1
-            Spinner spnCur2=parentActivity.findViewById(R.id.spin_cur_2);   //Link spnCur1 variable with spin_cur_2
-            Integer oldSp1 =spnCur1.getSelectedItemPosition();      // Save old spnCur1 selected item position
-            Integer oldSp2 =spnCur2.getSelectedItemPosition();      // Save old spnCur2 selected item position
-            SpinnerAdapter adapter=new SpinnerAdapter(parentActivity, MySpnCurList);
-            spnCur1.setAdapter(adapter);    // Update spnCur1's Adapter
-            spnCur2.setAdapter(adapter);    // Update spnCur2's Adapter
-            spnCur1.setSelection(oldSp1);   // Restore sp1 itemPos
-            spnCur2.setSelection(oldSp2);   // Restore sp2 itemPos
-        }
+    @Override
+    protected void onPostExecute(String[] strings){
+        DisplayData.renderMainScreen(strings,parentActivity,"URL");
         super.onPostExecute(strings);
-    }
-
-     static ArrayList<ItemData> updSpnCurList(String[] myStrings,Context tmpContext) {
-
-        String curTxt;
-        String curDescr;
-        Integer curImg;
-
-        ArrayList<ItemData> result =new ArrayList<>();
-         for(String rowStrings:myStrings){       //For each sting in mystrings
-            curTxt =  rowStrings.substring(0,3);    //Get currency text
-            curDescr = (new LibCurrenciesXML(tmpContext)).getCurDescr(curTxt);    //Get currency description
-            curImg =  (new LibCurrenciesXML(tmpContext)).findImgID(curTxt);  //find currency flag
-            result.add(new ItemData(" - " +curTxt, " - " + curDescr, curImg));    // Create a new line for spinner
-        }
-       return result;
     }
 
      private String[] fetchCurrenciesData() {

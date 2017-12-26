@@ -13,11 +13,15 @@
     <string name="spn_img_descr">currencys flag</string>
     <string name="hint_spin_cur">Choose currency</string>
     <string name="refresh">Refresh</string>
+    <string name="DBSource">DB</string>
+    <string name="URLsource">URL</string>
     <string name="last_upd_txt">Last update:</string>
     <string name="upd_text">Update online</string>
-    <string name="Try_to_update">Downloading data from ECB.</string>
+    <string name="Try_to_update">Trying to download data from ECB...</string>
     <string name="No_Auto_update">Auto update is set to false.</string>
     <string name="No_connection">Internet Connection NOT available.</string>
+    <string name="InternetCon_not_checked">Internet Connection has not been checked.</string>
+    <string name="Offline_Mode">OFFLINE MODE. Data source is local DB.</string>
     <string name="facebook_app_id">541898549491120</string>
     <string name="title_activity_settings">Settings</string>
     <string name="DataInserted">Data inserted to local DB</string>
