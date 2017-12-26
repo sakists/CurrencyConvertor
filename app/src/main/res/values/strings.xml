@@ -25,8 +25,8 @@
     <string name="Offline_Mode">OFFLINE MODE. Data source is local DB.</string>
     <string name="facebook_app_id">541898549491120</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="DataInserted">Data inserted to local DB</string>
-    <string name="DataNotInserted">Data NOT inserted to local DB</string>
+    <string name="DataInserted">Data inserted to local DB.</string>
+    <string name="DataNotInserted">Data NOT inserted to local DB.</string>
 
     <string name="pref_basic_group">Basic settings</string>
     <string name="pref_advance_group">Advance settings</string>
