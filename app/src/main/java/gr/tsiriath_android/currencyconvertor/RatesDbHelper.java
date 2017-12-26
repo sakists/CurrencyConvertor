@@ -66,9 +66,7 @@ public class RatesDbHelper extends SQLiteOpenHelper {
         String strSQL = "Select * from " + tblName + " ORDER BY " +  colDate + " DESC LIMIT 1"; //Compose SQL query
         SQLiteDatabase db = this.getWritableDatabase();         // Open database
         Cursor res= db.rawQuery(strSQL,null);                   // Execute SQL query
-//        res.moveToNext();
-//        Log.i("DbGetData - StrSQL" , res.getString(0) + " - " + res.getString(1) + " - " + res.getString(2));
-//        res.moveToFirst();
+
         return res;
     }
 

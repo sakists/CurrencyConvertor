@@ -10,9 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by tsiriath on 26/12/2017.
- */
 
 public class DisplayData {
 
@@ -26,7 +23,7 @@ public class DisplayData {
         if (strings != null) {
             //Update welcome message. Its the array's last element
             newWelcomeMessage = parentActivity.findViewById(R.id.welcomeMessage);
-            String newMessage = "";
+            String newMessage;
             // If Not Internet connection Change welcome Message to OFFLINE MODE
             if (sourceFlag == "DB") {
                 newMessage = parentActivity.getString(R.string.Offline_Mode) + "\n" + strings[strings.length - 1];

@@ -105,12 +105,18 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean BCupdFlag = mySharedPreferences.getBoolean(getString(R.string.pref_BaseCurAutoUpdate_key),Boolean.valueOf(getString(R.string.pref_BaseCurAutoUpdate_key)));
+        String newBaseCur = mySharedPreferences.getString(getString(R.string.pref_selectBase_key),getString(R.string.pref_selectBase_def));
+
         if (BCupdFlag) {    // Check if auto update on change base currency is true
-            // If network IS available show message and connect
-            if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
-                refreshData();
-            } else { // If network IS NOT available show message
-                showToast(getApplicationContext(), getString(R.string.No_connection), Toast.LENGTH_LONG);
+            if (newBaseCur != pref_baseCur) {   // Compare current Currency with new base currency
+                // If network IS available show message and connect
+                if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
+                    refreshData();
+                } else { // If network IS NOT available show message
+                    showToast(getApplicationContext(), getString(R.string.No_connection), Toast.LENGTH_LONG);
+                }
+            }else{
+                showToast(getApplicationContext(), getString(R.string.No_Need_to_update), Toast.LENGTH_LONG);
             }
         }
     }
@@ -330,7 +336,12 @@ public class MainActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.m22_refresh) {
-            refreshData();
+            // If network IS available show message and connect
+            if (FetchCurrenciesTask.isNetworkAvailable(getApplicationContext())) {
+                refreshData();
+            } else { // If network IS NOT available show message
+                showToast(getApplicationContext(), getString(R.string.No_connection), Toast.LENGTH_LONG);
+            }
             return true;
         }
         if (id == R.id.m23_fb_share_button) {

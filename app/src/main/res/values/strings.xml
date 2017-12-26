@@ -19,6 +19,7 @@
     <string name="upd_text">Update online</string>
     <string name="Try_to_update">Trying to download data from ECB...</string>
     <string name="No_Auto_update">Auto update is set to false.</string>
+    <string name="No_Need_to_update">Base currecy has not changed.\n No need to update.</string>
     <string name="No_connection">Internet Connection NOT available.</string>
     <string name="InternetCon_not_checked">Internet Connection has not been checked.</string>
     <string name="Offline_Mode">OFFLINE MODE. Data source is local DB.</string>
